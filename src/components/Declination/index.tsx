@@ -41,10 +41,10 @@ const Declination: React.FC<IProps> = (props) => {
 
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
-    {numbers.map(n => <>
+    {numbers.map(n => <div key={n}>
       <h3>{capitalize(n)}</h3>
       <div className={styles.declination}>
-        {cases.map(c => <>
+        {cases.map(c =>
           <Item
             key={c}
             name={capitalize(c)}
@@ -52,10 +52,9 @@ const Declination: React.FC<IProps> = (props) => {
             disabled={Boolean(errors)}
             error={errors && errors[n].includes(c)}
             onChange={v => updateAnswer(n, c, v)}
-          />
-        </>)}
+          />)}
       </div>
-    </>)}
+    </div>)}
   </div>
 }
 
