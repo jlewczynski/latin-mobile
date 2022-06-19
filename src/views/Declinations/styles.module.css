@@ -16,18 +16,24 @@
   background-color: red;
 }
 
-
-.hint {
-  background-color: #dddddd;
+.actionButton {
   border-radius: 3px;
   border: none;
-  color: black;
   height: 32px;
   width: 32px;
   text-align: center;
+  margin: 0 5px;
+}
+.hint {
+  background-color: #dddddd;
+  color: black;
 }
 
 .hint.visible {
   background-color: #008502;
   color: white
+}
+.skip {
+  background-color: #d2a500;
+  color: black;
 }
