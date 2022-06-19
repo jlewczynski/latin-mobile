@@ -29,11 +29,11 @@
 }
 
 .settings::after {
-  content: "⚙";
+  content: "*";
   font-size: 32px;
   line-height: 32px;
   position: relative;
-  top: -4px;
+  top: 4px;
 }
 
 .settingsPanel {
@@ -47,4 +47,19 @@
   border-radius: 0 0 5px 5px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+.hint {
+  background-color: #dddddd;
+  border-radius: 3px;
+  border: none;
+  color: black;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+
+.hint.visible {
+  background-color: #008502;
+  color: white
 }

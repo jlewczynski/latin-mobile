@@ -72,6 +72,7 @@ const Declinations: React.FC<IProps> = (props) => {
   const [template, setTemplate] = React.useState(() => nextWord());
   const [answer, setAnswer] = React.useState(() => empty(template));
   const [errorList, setErrorList] = React.useState<TErrorList>();
+  const [showHint, setShowHint] = React.useState(false);
 
   const { repeats, errors } = state.wordStats[template.word] ?? { repeats: 0, errors: 0};
 
@@ -110,12 +111,14 @@ const Declinations: React.FC<IProps> = (props) => {
           />
         </label>
       </>}
-      button={
-        <button className={cx(styles.submit, errorList && styles.error)} onClick={check}>OK</button>
+      footer={
+        <button className={cx(styles.submit, errorList && styles.error)} disabled={showHint} onClick={check}>OK</button>
       }
+      hintState={showHint}
+      onHint={setShowHint}
     >
       <Stats repeats={repeats} errors={errors} />
-      <Declination word={answer} onChange={setAnswer} errors={errorList} />
+      <Declination word={answer} onChange={setAnswer} errors={errorList} hint={showHint ? template : undefined} />
     </Layout>);
 }
 

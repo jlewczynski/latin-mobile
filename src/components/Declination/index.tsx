@@ -8,6 +8,7 @@ interface IProps {
   word: TDeclination;
   onChange: (answer: TDeclination) => void;
   errors?: TErrorList;
+  hint?: TDeclination;
 }
 
 interface IItemProps {
@@ -17,26 +18,32 @@ interface IItemProps {
   disabled?: boolean;
   error?: boolean;
   onFocusNext?: () => void;
+  hint?: string;
 }
 
 const Item = React.forwardRef<HTMLInputElement, IItemProps>((props, ref) => {
-  const { name, value, onChange, disabled, error, onFocusNext } = props;
+  const { name, value, onChange, disabled, error, onFocusNext, hint } = props;
   return <>
     <span className={cx(styles.cell, styles.title)}>{name}</span>
-    <input
-      ref={ref}
-      type='text'
-      disabled={disabled}
-      className={cx(styles.cell, styles.input, error && styles.error)}
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      onKeyDown={onFocusNext && (e => (e.key === 'Enter') && onFocusNext())}
-    />
+    {hint === undefined &&
+      <input
+        ref={ref}
+        type='text'
+        disabled={disabled}
+        className={cx(styles.cell, styles.input, error && styles.error)}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onKeyDown={onFocusNext && (e => (e.key === 'Enter') && onFocusNext())}
+      />
+    }
+    {hint !== undefined &&
+      <span className={cx(styles.cell, styles.hint)}>{hint || '-'}</span>
+    }
   </>
 });
 
 const Declination: React.FC<IProps> = (props) => {
-  const { word, onChange, errors } = props;
+  const { word, onChange, errors, hint } = props;
 
   const inputRefs = React.useRef<HTMLInputElement[]>([]);
 
@@ -57,6 +64,7 @@ const Declination: React.FC<IProps> = (props) => {
             ref={element => element && (inputRefs.current.push(element))}
             name={capitalize(c)}
             value={word[n][c]}
+            hint={hint?.[n]?.[c]}
             disabled={Boolean(errors)}
             error={errors && errors[n].includes(c)}
             onChange={v => updateAnswer(n, c, v)}

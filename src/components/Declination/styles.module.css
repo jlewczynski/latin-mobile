@@ -11,15 +11,19 @@
 }
 
 .title {
-  line-height: 32px;
+  line-height: 24px;
+}
+
+.hint {
+  font-style: italic;
 }
 
 .input {
-  height: 28px;
+  height: 20px;
   margin: 2px 0;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid lightgray;
 }
 
 .input:focus {
