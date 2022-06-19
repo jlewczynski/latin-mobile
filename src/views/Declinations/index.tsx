@@ -5,28 +5,9 @@ import Stats from '../../components/Stats';
 import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
 import styles from './styles.module.css';
 import cx from 'classnames';
+import { words } from '../../data/Declination';
 
 interface IProps {
-}
-
-const rose: TDeclination = {
-  word: 'róża',
-  singularis: {
-    nominativus: 'rosa',
-    genetivus: 'rosae',
-    dativus: 'rosae',
-    accusativus: 'rosam',
-    ablativus: 'rosa',
-    vocativus: 'rosa',
-  },
-  pluralis: {
-    nominativus: 'rosae',
-    genetivus: 'rosarum',
-    dativus: 'rosis',
-    accusativus: 'rosas',
-    ablativus: 'rosis',
-    vocativus: 'rosae',
-  }
 }
 
 const Declinations: React.FC<IProps> = (props) => {
@@ -34,12 +15,27 @@ const Declinations: React.FC<IProps> = (props) => {
   const [repeats, setRepeats] = React.useState(0);
   const [errors, setErrors] = React.useState(0);
 
-  const [template, setTemplate] = React.useState(rose);
-  const [answer, setAnswer] = React.useState(empty(rose));
+  const wordSet = React.useRef<TDeclination[]>([]);
+
+  const nextWord = (): TDeclination => {
+    console.log(wordSet.current);
+    if (!wordSet.current.length) {
+      wordSet.current = [...words];
+    }
+    if (random) {
+      const index = Math.floor(Math.random() * wordSet.current.length);
+      return wordSet.current.splice(index, 1)[0];
+    } else {
+      return wordSet.current.shift()!;
+    }
+  };
+
+  const [template, setTemplate] = React.useState(() => nextWord());
+  const [answer, setAnswer] = React.useState(() => empty(template));
   const [errorList, setErrorList] = React.useState<TErrorList>();
 
-  const testNext = () => {
-    const next = rose; //get next word;
+  const next = () => {
+    const next = nextWord();
 
     setTemplate(next);
     setAnswer(empty(next));
@@ -48,15 +44,15 @@ const Declinations: React.FC<IProps> = (props) => {
 
   const check = () => {
     if (errorList) {
-      testNext();
+      next();
     } else {
-      const result = validate(rose, answer);
+      const result = validate(template, answer);
       if (result) {
         setErrors(e => e + 1);
         setErrorList(result);
       } else {
         setRepeats(p => p + 1);
-        testNext();
+        next();
       }
     }
   }

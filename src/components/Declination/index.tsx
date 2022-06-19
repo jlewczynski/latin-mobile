@@ -40,7 +40,7 @@ const Declination: React.FC<IProps> = (props) => {
   }
 
   return <div className={styles.container}>
-    <h2 className={styles.word}>róża</h2>
+    <h2 className={styles.word}>{word.word}</h2>
     {numbers.map(n => <>
       <h3>{capitalize(n)}</h3>
       <div className={styles.declination}>

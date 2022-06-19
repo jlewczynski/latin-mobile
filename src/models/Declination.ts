@@ -15,7 +15,7 @@ export const numbers = [
 ] as const;
 export type TDeclinationNumber = typeof numbers[number];
 
-type TDeclinationNumberSet = Record<TCaseName, string>;
+export type TDeclinationNumberSet = Record<TCaseName, string>;
 
 export type TDeclination = {
   word: string;
