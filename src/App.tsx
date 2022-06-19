@@ -7,16 +7,26 @@ const App: React.FC = () => {
   const view = search.get('view') ?? '';
   const Component = views[view];
 
-  const [localState, setLocalState] = React.useState<Record<string, string>>({});
+  const [localState, setLocalState] = React.useState<string | undefined>(() => (localStorage.getItem(view) || undefined));
+
+  React.useEffect(() => {
+    const callback = (event: StorageEvent) => {
+      if (event.storageArea !== localStorage || event.key !== view) {
+        return;
+      }
+      setLocalState(event.newValue || undefined);
+    }
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
+
   const updateStats = (val: string) => {
-    setLocalState(prev => ({
-      ...prev,
-      [view]: val
-    }));
+    localStorage.setItem(view, val);
+    setLocalState(val);
   }
 
   return <div className={styles.app}>
-    {Component && <Component persistentState={localState[view]} updatePersistentState={updateStats} />}
+    {Component && <Component persistentState={localState} updatePersistentState={updateStats} />}
   </div>;
 }
 
