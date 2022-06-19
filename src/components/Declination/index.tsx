@@ -16,22 +16,29 @@ interface IItemProps {
   onChange: (value: string) => void;
   disabled?: boolean;
   error?: boolean;
+  onFocusNext?: () => void;
 }
 
-const Item: React.FC<IItemProps> = ({ name, value, onChange, disabled, error }) => {
+const Item = React.forwardRef<HTMLInputElement, IItemProps>((props, ref) => {
+  const { name, value, onChange, disabled, error, onFocusNext } = props;
   return <>
     <span className={cx(styles.cell, styles.title)}>{name}</span>
     <input
+      ref={ref}
       type='text'
       disabled={disabled}
       className={cx(styles.cell, styles.input, error && styles.error)}
       value={value}
-      onChange={e => onChange(e.target.value)}/>
+      onChange={e => onChange(e.target.value)}
+      onKeyDown={onFocusNext && (e => (e.key === 'Enter') && onFocusNext())}
+    />
   </>
-}
+});
 
 const Declination: React.FC<IProps> = (props) => {
   const { word, onChange, errors } = props;
+
+  const inputRefs = React.useRef<HTMLInputElement[]>([]);
 
   const updateAnswer = (number: TDeclinationNumber, caseName: TCaseName, value: string) => {
     const res = {...word};
@@ -41,17 +48,22 @@ const Declination: React.FC<IProps> = (props) => {
 
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
-    {numbers.map(n => <div key={n}>
+    {numbers.map((n, ni) => <div key={n}>
       <h3>{capitalize(n)}</h3>
       <div className={styles.declination}>
-        {cases.map(c =>
+        {cases.map((c, ci) =>
           <Item
             key={c}
+            ref={element => element && (inputRefs.current.push(element))}
             name={capitalize(c)}
             value={word[n][c]}
             disabled={Boolean(errors)}
             error={errors && errors[n].includes(c)}
             onChange={v => updateAnswer(n, c, v)}
+            onFocusNext={() => {
+              const next = inputRefs.current[ni * cases.length + ci + 1];
+              next && next.focus();
+            }}
           />)}
       </div>
     </div>)}
