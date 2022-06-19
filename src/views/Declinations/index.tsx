@@ -114,8 +114,13 @@ const Declinations: React.FC<IProps> = (props) => {
       footer={
         <button className={cx(styles.submit, errorList && styles.error)} disabled={showHint} onClick={check}>OK</button>
       }
-      hintState={showHint}
-      onHint={setShowHint}
+      additionalActions={
+        <button
+          className={cx(styles.hint, showHint && styles.visible)}
+          onClick={() => setShowHint(prev => !prev)}
+        >
+          ?
+        </button>}
     >
       <Stats repeats={repeats} errors={errors} />
       <Declination word={answer} onChange={setAnswer} errors={errorList} hint={showHint ? template : undefined} />
