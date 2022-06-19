@@ -6,23 +6,62 @@ import { empty, TDeclination, TErrorList, validate } from '../../models/Declinat
 import styles from './styles.module.css';
 import cx from 'classnames';
 import { words } from '../../data/Declination';
+import { IViewProps } from '..';
 
-interface IProps {
+interface IProps extends IViewProps {
+}
+
+interface IConfig {
+  random: boolean;
+}
+
+interface IWordStats {
+  repeats: number;
+  errors: number;
+}
+
+interface IPersistentState {
+  config: IConfig;
+  wordStats: Record<string, IWordStats>;
+}
+
+const defaultState: IPersistentState = {
+  config: {
+    random: false,
+  },
+  wordStats: {
+  },
 }
 
 const Declinations: React.FC<IProps> = (props) => {
-  const [random, setRandom] = React.useState(false);
-  const [repeats, setRepeats] = React.useState(0);
-  const [errors, setErrors] = React.useState(0);
+  const { persistentState, updatePersistentState: updateStats } = props;
+  const state: IPersistentState = persistentState ?
+    JSON.parse(persistentState) :
+    defaultState;
+
+  const doUpdate = (newState: Partial<IPersistentState>) => {
+    updateStats(JSON.stringify({
+      ...state,
+      ...newState,
+    }));
+  }
+  const updateConfig = (val: Partial<IConfig>) =>
+    doUpdate({config: { ...state.config, ...val }});
+  const updateWordStats = (word: string, val: IWordStats) =>
+    doUpdate({ wordStats: { ...state.wordStats, [word]: val }});
+  const updateWordStat = (word: string, val: Partial<IWordStats>) =>
+    updateWordStats(word, {
+      ...state.wordStats[word] ?? { repeats: 0, errors: 0 },
+      ...val,
+    });
 
   const wordSet = React.useRef<TDeclination[]>([]);
 
   const nextWord = (): TDeclination => {
-    console.log(wordSet.current);
     if (!wordSet.current.length) {
       wordSet.current = [...words];
     }
-    if (random) {
+    if (state.config.random) {
       const index = Math.floor(Math.random() * wordSet.current.length);
       return wordSet.current.splice(index, 1)[0];
     } else {
@@ -33,6 +72,8 @@ const Declinations: React.FC<IProps> = (props) => {
   const [template, setTemplate] = React.useState(() => nextWord());
   const [answer, setAnswer] = React.useState(() => empty(template));
   const [errorList, setErrorList] = React.useState<TErrorList>();
+
+  const { repeats, errors } = state.wordStats[template.word] ?? { repeats: 0, errors: 0};
 
   const next = () => {
     const next = nextWord();
@@ -48,10 +89,10 @@ const Declinations: React.FC<IProps> = (props) => {
     } else {
       const result = validate(template, answer);
       if (result) {
-        setErrors(e => e + 1);
+        updateWordStat(template.word, { errors: errors + 1 });
         setErrorList(result);
       } else {
-        setRepeats(p => p + 1);
+        updateWordStat(template.word, { repeats: repeats + 1 });
         next();
       }
     }
@@ -62,7 +103,11 @@ const Declinations: React.FC<IProps> = (props) => {
       settings={<>
         <label>
           Random
-          <input type='checkbox' checked={random} onChange={e => setRandom(e.target.checked)} />
+          <input
+            type='checkbox'
+            checked={state.config.random}
+            onChange={e => updateConfig({ random: e.target.checked })}
+          />
         </label>
       </>}
       button={

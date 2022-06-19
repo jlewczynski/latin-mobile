@@ -7,8 +7,16 @@ const App: React.FC = () => {
   const view = search.get('view') ?? '';
   const Component = views[view];
 
+  const [localState, setLocalState] = React.useState<Record<string, string>>({});
+  const updateStats = (val: string) => {
+    setLocalState(prev => ({
+      ...prev,
+      [view]: val
+    }));
+  }
+
   return <div className={styles.app}>
-    {Component && <Component />}
+    {Component && <Component persistentState={localState[view]} updatePersistentState={updateStats} />}
   </div>;
 }
 
