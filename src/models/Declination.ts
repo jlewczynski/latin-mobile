@@ -53,7 +53,7 @@ export function validate(template: TDeclination, answers: TDeclination) {
   let valid = true;
 
   numbers.forEach(n => cases.forEach(c => {
-    if (template[n][c] !== answers[n][c]) {
+    if (template[n][c].toLocaleLowerCase() !== answers[n][c].toLocaleLowerCase()) {
       result[n].push(c);
       valid = false;
     }

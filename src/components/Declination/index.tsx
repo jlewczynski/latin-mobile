@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 import cx from 'classnames';
-import { cases, empty, numbers, TCaseName, TDeclination, TDeclinationNumber, TErrorList } from '../../models/Declination';
+import { cases, numbers, TCaseName, TDeclination, TDeclinationNumber, TErrorList } from '../../models/Declination';
 import { capitalize } from '../../utils';
 
 interface IProps {
