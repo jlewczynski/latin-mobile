@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #004201;
+  padding: 0 10px;
+}
+
+.back {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.settings {
+  background-color: #008502;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+
+.settings::after {
+  content: "⚙";
+  font-size: 32px;
+  line-height: 32px;
+  position: relative;
+  top: -4px;
+}
+
+.settingsPanel {
+  position: absolute;
+  top: 48px;
+  background-color: #004201;
+  left: 0px;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  border-radius: 0 0 5px 5px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}

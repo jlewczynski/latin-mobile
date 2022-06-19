@@ -1,0 +1,12 @@
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+  background-color: var(--background-color);
+}
+
+.title {
+  text-align: center;
+  color: var(--text-color);
+}

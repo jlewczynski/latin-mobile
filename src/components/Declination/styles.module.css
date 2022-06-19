@@ -1,0 +1,33 @@
+.container {}
+
+.word {
+  text-align: center;
+}
+
+.declination {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 32px);
+}
+
+.title {
+  line-height: 32px;
+}
+
+.input {
+  height: 28px;
+  margin: 2px 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.input:focus {
+  margin-bottom: 1px;
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+.error {
+  color: red;
+}

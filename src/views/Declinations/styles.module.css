@@ -1,0 +1,17 @@
+.submit {
+  width: 100%;
+  height: 100%;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.submit:disabled {
+  background-color: lightgray;
+  color: black;
+}
+
+.submit.error {
+  background-color: red;
+}
