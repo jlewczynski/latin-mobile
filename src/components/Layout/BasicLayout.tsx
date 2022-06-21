@@ -8,7 +8,7 @@ interface IProps {
   footer?: React.ReactNode;
 }
 
-const Layout: React.FC<React.PropsWithChildren<IProps>> = (props) => {
+const BasicLayout: React.FC<React.PropsWithChildren<IProps>> = (props) => {
   const { children, settings, footer, additionalActions } = props;
   return <div className={styles.container}>
     <Navbar
@@ -25,4 +25,4 @@ const Layout: React.FC<React.PropsWithChildren<IProps>> = (props) => {
   </div>
 }
 
-export default Layout;
+export default BasicLayout;
