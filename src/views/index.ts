@@ -1,4 +1,5 @@
 import React from "react";
+import Comparisons from "./Comparisons";
 import Declinations from "./Declinations";
 import MainView from "./Main";
 
@@ -10,4 +11,5 @@ export interface IViewProps {
 export const views: Record<string, React.FC<IViewProps>> = {
   '': MainView,
   'declination': Declinations,
+  'comparison': Comparisons,
 }
