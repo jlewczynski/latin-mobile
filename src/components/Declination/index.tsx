@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './styles.module.css';
-import cx from 'classnames';
 import { cases, numbers, TCaseName, TDeclination, TDeclinationNumber, TErrorList } from '../../models/Declination';
 import { capitalize } from '../../utils';
+import TestInputs from '../TestInput';
 
 interface IProps {
   word: TDeclination;
@@ -10,37 +10,6 @@ interface IProps {
   errors?: TErrorList;
   hint?: TDeclination;
 }
-
-interface IItemProps {
-  name: string;
-  value: string;
-  onChange: (value: string) => void;
-  disabled?: boolean;
-  error?: boolean;
-  onFocusNext?: () => void;
-  hint?: string;
-}
-
-const Item = React.forwardRef<HTMLInputElement, IItemProps>((props, ref) => {
-  const { name, value, onChange, disabled, error, onFocusNext, hint } = props;
-  return <>
-    <span className={cx(styles.cell, styles.title)}>{name}</span>
-    {hint === undefined &&
-      <input
-        ref={ref}
-        type='text'
-        disabled={disabled}
-        className={cx(styles.cell, styles.input, error && styles.error)}
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        onKeyDown={onFocusNext && (e => (e.key === 'Enter') && onFocusNext())}
-      />
-    }
-    {hint !== undefined &&
-      <span className={cx(styles.cell, styles.hint)}>{hint || '-'}</span>
-    }
-  </>
-});
 
 const Declination: React.FC<IProps> = (props) => {
   const { word, onChange, errors, hint } = props;
@@ -57,23 +26,19 @@ const Declination: React.FC<IProps> = (props) => {
     <h2 className={styles.word}>{word.word}</h2>
     {numbers.map((n, ni) => <div key={n}>
       <h3>{capitalize(n)}</h3>
-      <div className={styles.declination}>
-        {cases.map((c, ci) =>
-          <Item
-            key={c}
-            ref={element => element && (inputRefs.current.push(element))}
-            name={capitalize(c)}
-            value={word[n][c]}
-            hint={hint?.[n]?.[c]}
-            disabled={Boolean(errors)}
-            error={errors && errors[n].includes(c)}
-            onChange={v => updateAnswer(n, c, v)}
-            onFocusNext={() => {
-              const next = inputRefs.current[ni * cases.length + ci + 1];
-              next && next.focus();
-            }}
-          />)}
-      </div>
+      <TestInputs
+        inputRefs={inputRefs}
+      >
+        {cases.map((c, ci) => ({
+            index: ni * cases.length + ci + 1,
+            name: capitalize(c),
+            value: word[n][c],
+            hint: hint?.[n]?.[c],
+            disabled: Boolean(errors),
+            error: errors && errors[n].includes(c),
+            onChange: v => updateAnswer(n, c, v),
+        }))}
+      </TestInputs>
     </div>)}
   </div>
 }
