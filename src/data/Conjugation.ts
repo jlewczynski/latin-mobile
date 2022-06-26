@@ -97,7 +97,71 @@ const amo: TConjugation = {
   }
 }
 
+const moneo: TConjugation = {
+  word: 'napominać',
+  indicativus: {
+    activum: v(
+      ['moneo', 'mones', 'monet', 'monemus', 'monetis', 'monent'],
+      ['monebam', 'monebas', 'monebat', 'monebamus', 'monebatis', 'monebant'],
+      ['monebo', 'monebis', 'monebit', 'monebimus', 'monebitis', 'monebunt'],
+      ['monui', 'monuisti', 'monuit', 'monuimus', 'monuistis', 'monuerunt'],
+      ['monueram', 'monueras', 'monuerat', 'monueramus', 'monueratis', 'monuerint'],
+      ['monuero', 'monueris', 'monuerit', 'monuerimus', 'monueritis', 'monuerint'],
+    ),
+    passivum: v(
+      ['moneor', 'moneris', 'monetur', 'monemur', 'monemini', 'monentur'],
+      ['monebar', 'monebaris', 'monebatur', 'monebamur', 'monebamini', 'monebantur'],
+      ['monebor', 'moneberis', 'monebitur', 'monebimur', 'monebimini', 'monebuntur'],
+      ['monitus sum', 'monitus es', 'monitus est', 'monitus sumus', 'monitus estis', 'monitus sunt'],
+      ['monitus eram', 'monitus eras', 'monitus erat', 'monitus eramus', 'monitus eratis', 'monitus erant'],
+      ['monitus ero', 'monitus eris', 'monitus erit', 'monitus erimus', 'monitus eritis', 'monitus erunt'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['moneam', 'moneas', 'moneat', 'moneamus', 'moneatis', 'moneant'],
+      ['monerem', 'moneres', 'moneret', 'moneremus', 'moneretis', 'monerent'],
+      ['monuerim', 'monueris', 'monuerit', 'monuerimus', 'monueritis', 'monuerint'],
+      ['monuissem', 'monuisses', 'monuisset', 'monuissemus', 'monuissetis', 'monuissent'],
+    ),
+    passivum: v(
+      ['monear', 'monearis', 'moneatur', 'moneamur', 'moneamini', 'moneantur'],
+      ['monerer', 'monereris', 'moneretur', 'moneremur', 'moneremini', 'monerentur'],
+      ['monitus sim', 'monitus sis', 'monitus sit', 'monitus simus', 'monitus sitis', 'monitus sint'],
+      ['monitus essem', 'monitus esses', 'monitus esset', 'monitus essemus', 'monitus essetis', 'monitus essent'],
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'mone', '', '', 'monete'],
+      ['', 'moneto', 'moneto', '', 'monetote', 'monento'],
+    ),
+    passivum: v(
+      ['', 'monere', '', '', 'monemini'],
+      ['', 'monetor', 'monetor', '', '', 'monentor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['monere', 'monuisse', 'moniturum esse'],
+    passivum: ['moneri', 'monitum esse', 'monitum iri'],
+  },
+  participium: {
+    activum: ['monens', '', 'moniturus'],
+    passivum: ['', 'monitus', 'monendus'],
+  },
+  gerundium: {
+    genetivus: 'monendi',
+    dativus: 'monendo',
+    accusativus: 'monendum',
+    ablativus: 'monendo',
+  },
+  supinum: {
+    accusativus: 'monitum',
+    ablativus: 'monitu',
+  }
+}
 
 export const words = [
   amo,
+  moneo,
 ]
