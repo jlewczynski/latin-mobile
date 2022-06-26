@@ -27,7 +27,7 @@ const TestInputs = (props: IProps) => {
     {children.map(item => {
       const { index, ...props} = item;
       return <Item
-
+      key={index}
       ref={element => element && (inputRefs.current.push(element))}
       {...props}
       onFocusNext={() => {

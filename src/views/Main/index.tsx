@@ -8,7 +8,7 @@ const MainView: React.FC = () => {
     <MainMenu>
       <MainMenu.Item link={'declination'}>Deklinacja</MainMenu.Item>
       <MainMenu.Item link={'comparison'}>Stopniowanie</MainMenu.Item>
-      <MainMenu.Item>Koniugacja</MainMenu.Item>
+      <MainMenu.Item link={'conjugation'}>Koniugacja</MainMenu.Item>
       <MainMenu.Item>Liczebniki</MainMenu.Item>
     </MainMenu>
   </>;
