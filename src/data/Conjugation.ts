@@ -161,7 +161,137 @@ const moneo: TConjugation = {
   }
 }
 
+const ago: TConjugation = {
+  word: 'czynić, działać',
+  indicativus: {
+    activum: v(
+      ['ago', 'agis', 'agit', 'agimus', 'agitis', 'agunt'],
+      ['agebam', 'agebas', 'agebat', 'agebamus', 'agebatis', 'agebant'],
+      ['agam', 'ages', 'aget', 'agemus', 'agetis', 'agent'],
+      ['egi', 'egisti', 'egit', 'egimus', 'egitis', 'egerunt'],
+      ['egeram', 'egeras', 'egerat', 'egeramus', 'egeratis', 'egerant'],
+      ['egero', 'egeris', 'egerit', 'egerimus', 'egeritis', 'egering'],
+    ),
+    passivum: v(
+      ['agor', 'ageris', 'agitur', 'agimur', 'agimini', 'aguntur'],
+      ['agebar', 'agebaris', 'agebatu', 'agebamur', 'agebamini', 'agebantur'],
+      ['agar', 'ageris', 'agetur', 'agemur', 'agemini', 'agentur'],
+      ['actus sum', 'actus es', 'actus est', 'actus sumus', 'actus estis', 'actus sunt'],
+      ['actus eram', 'actus eras', 'actus erat', 'actus eramus', 'actus eratis', 'actus erant'],
+      ['actus ero', 'actus eris', 'actus erit', 'actus erimus', 'actus eritis', 'actus erunt'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['agam', 'agas', 'agat', 'agamus', 'agatis', 'agant'],
+      ['agerem', 'ageres', 'agerent', 'ageremus', 'ageretis', 'agerent'],
+      ['egerim', 'egeris', 'egerit', 'egerimus', 'egeritis', 'egerint'],
+      ['egissem', 'egisses', 'egisset', 'egissemus', 'egissetis', 'egissent'],
+    ),
+    passivum: v(
+      ['agar', 'agaris', 'agatur', 'agamur', 'agamini', 'agantur'],
+      ['agerer', 'agereris', 'ageretur', 'ageremus', 'ageremini', 'agerentur'],
+      ['actus sim', 'actus sis', 'actus sit', 'actus simus', 'actus sitis', 'actus sint'],
+      ['actus essem', 'actus esses', 'actus esset', 'actus essemus', 'actus essetis', 'actus essent'],
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'age', '', '', 'agite', ''],
+      ['', 'agito', 'agito', '', 'agitote', 'agunto'],
+    ),
+    passivum: v(
+      ['', 'agere', '', '', 'agimini', ''],
+      ['', 'agitor', 'agitor', '', '', 'aguntor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['agire', 'agesse', 'acturum esse'],
+    passivum: ['agi', 'actum esse', 'actum iri'],
+  },
+  participium: {
+    activum: ['agens', '', 'acturus'],
+    passivum: ['', 'actus', 'agendus'],
+  },
+  gerundium: {
+    genetivus: 'agendi',
+    dativus: 'agendo',
+    accusativus: 'agendum',
+    ablativus: 'agendo',
+  },
+  supinum: {
+    accusativus: 'actum',
+    ablativus: 'actu',
+  },
+};
+
+const capio: TConjugation = {
+  word: 'łapać, chwytać',
+  indicativus: {
+    activum: v(
+      ['capio', 'capis', 'capit', 'capimus', 'capitis', 'capiunt'],
+      ['capiebam', 'capiebas', 'capiebat', 'capiebamus', 'capiebatis', 'capiebant'],
+      ['capiam', 'capies', 'capiet', 'capiemus', 'capietis', 'capient'],
+      ['cepi', 'cepisti', 'cepit', 'cepimus', 'cepistis', 'ceperunt'],
+      ['ceperam', 'ceperas', 'ceperat', 'ceperamus', 'ceperatis', 'ceperant'],
+      ['cepero', 'ceperis', 'ceperit', 'ceperimus', 'ceperitis', 'ceperint'],
+    ),
+    passivum: v(
+      ['capior', 'caperis', 'capitur', 'capimur', 'capimini', 'capiuntur'],
+      ['capiebar', 'capiebaris', 'capiebatur', 'capiebamus', 'capiebamini', 'capiebantur'],
+      ['capiar', 'capieris', 'capietur', 'capiemur', 'capiemini', 'capientur'],
+      ['captus sum', 'captus es', 'captus est', 'captus sumus', 'captus estis', 'captus sunt'],
+      ['captus eram', 'captus eras', 'captus erat', 'captus eramus', 'captus eratis', 'captus erant'],
+      ['captus ero', 'captus eris', 'captus erit', 'captus erimus', 'captus eritis', 'captus erunt'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['capiam', 'capias', 'capiat', 'capiamus', 'capiatis', 'capiant'],
+      ['caperem', 'caperes', 'caperet', 'caperemus', 'caperetis', 'caperent'],
+      ['ceperim', 'ceperis', 'ceperit', 'ceperimus', 'ceperitis', 'ceperint'],
+      ['cepissem', 'cepisses', 'cepisset', 'cepissemus', 'cepissetis', 'cepissent'],
+    ),
+    passivum: v(
+      ['capiar', 'capiaris', 'capiatur', 'capiamur', 'capiamini', 'capiantur'],
+      ['caperer', 'capereris', 'caperetur', 'caperemur', 'caperemini', 'caperentur'],
+      ['captus sim', 'captus sis', 'captus sit', 'captus simus', 'captus sitis', 'captus sint'],
+      ['captus essem', 'captus esses', 'captus esset', 'captus essemus', 'captus essetis', 'captus essent'],
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'cape', '', '', 'capite', ''],
+      ['', 'capito', 'capito', '', 'capitote', 'capiunto'],
+    ),
+    passivum: v(
+      ['', 'capere', '', '', 'capimini', ''],
+      ['', 'capitor', 'capitor', '', '', 'capiuntor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['capere', 'capisse', 'capturum esse'],
+    passivum: ['capi', 'captum esse', 'captum iri'],
+  },
+  participium: {
+    activum: ['capiens', '', 'capturus'],
+    passivum: ['', 'capus', 'capiendus'],
+  },
+  gerundium: {
+    genetivus: 'capiendi',
+    dativus: 'capiendo',
+    accusativus: 'capiendum',
+    ablativus: 'capiendo',
+  },
+  supinum: {
+    accusativus: 'captum',
+    ablativus: 'captu',
+  },
+}
+
 export const words = [
   amo,
   moneo,
+  ago,
+  capio,
 ]
