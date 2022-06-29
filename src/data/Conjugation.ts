@@ -33,6 +33,17 @@ function v(s0: string[], s1: string[], s2?: string[], s3?: string[], s4?: string
   } as TImperativeTenses;
 }
 
+const indicativeSum = (prefix: string): [string[],string[],string[]] => [
+  [`${prefix} sum`, `${prefix} es`, `${prefix} est`, `${prefix} sumus`, `${prefix} estis`, `${prefix} sunt`],
+  [`${prefix} eram`, `${prefix} eras`, `${prefix} erat`, `${prefix} eramus`, `${prefix} eratis`, `${prefix} erant`],
+  [`${prefix} ero`, `${prefix} eris`, `${prefix} erit`, `${prefix} erimus`, `${prefix} eritis`, `${prefix} erunt`],
+];
+
+const conjunctiveSum = (prefix: string): [string[],string[]] => [
+  [`${prefix} sim`, `${prefix} sis`, `${prefix} sit`, `${prefix} simus`, `${prefix} sitis`, `${prefix} sint`],
+  [`${prefix} essem`, `${prefix} esses`, `${prefix} esset`, `${prefix} essemus`, `${prefix} essetis`, `${prefix} essent`],
+]
+
 const amo: TConjugation = {
   word: 'kochać',
   indicativus: {
@@ -48,9 +59,7 @@ const amo: TConjugation = {
       ['amor', 'amaris', 'amatur', 'amamur', 'amamini', 'amantur'],
       ['amabar', 'amabaris', 'amabatur', 'amabamur', 'amabamini', 'amabantur'],
       ['amabor', 'amaberis', 'amabitur', 'amabimur', 'amabimini', 'amabuntur'],
-      ['amatus sum', 'amatus es', 'amatus est', 'amatus sumus', 'amatus estis', 'amatus sunt'],
-      ['amatus eram', 'amatus eras', 'amatus erat', 'amatus eramus', 'amatus eratis', 'amatus erant'],
-      ['amatus ero', 'amatus eris', 'amatus erit', 'amatus erimus', 'amatus eritis', 'amatus erunt'],
+      ...(indicativeSum('amatus')),
     ),
   },
   coniunctivus: {
@@ -63,8 +72,7 @@ const amo: TConjugation = {
     passivum: v(
       ['amer', 'ameris', 'ametur', 'amemur', 'amemini', 'amentur'],
       ['amarer', 'amareris', 'amaretur', 'amaremur', 'amaremini', 'amarentur'],
-      ['amatus sim', 'amatus sis', 'amatus sit', 'amatus simus', 'amatus sitis', 'amatus sint'],
-      ['amatus essem', 'amatus esses', 'amatus esset', 'amatus essemus', 'amatus essetis', 'amatus essent'],
+      ...conjunctiveSum('amatus'),
     ),
   },
   imperativus: {
@@ -112,9 +120,7 @@ const moneo: TConjugation = {
       ['moneor', 'moneris', 'monetur', 'monemur', 'monemini', 'monentur'],
       ['monebar', 'monebaris', 'monebatur', 'monebamur', 'monebamini', 'monebantur'],
       ['monebor', 'moneberis', 'monebitur', 'monebimur', 'monebimini', 'monebuntur'],
-      ['monitus sum', 'monitus es', 'monitus est', 'monitus sumus', 'monitus estis', 'monitus sunt'],
-      ['monitus eram', 'monitus eras', 'monitus erat', 'monitus eramus', 'monitus eratis', 'monitus erant'],
-      ['monitus ero', 'monitus eris', 'monitus erit', 'monitus erimus', 'monitus eritis', 'monitus erunt'],
+      ...indicativeSum('monitus'),
     ),
   },
   coniunctivus: {
@@ -127,8 +133,7 @@ const moneo: TConjugation = {
     passivum: v(
       ['monear', 'monearis', 'moneatur', 'moneamur', 'moneamini', 'moneantur'],
       ['monerer', 'monereris', 'moneretur', 'moneremur', 'moneremini', 'monerentur'],
-      ['monitus sim', 'monitus sis', 'monitus sit', 'monitus simus', 'monitus sitis', 'monitus sint'],
-      ['monitus essem', 'monitus esses', 'monitus esset', 'monitus essemus', 'monitus essetis', 'monitus essent'],
+      ...conjunctiveSum('monitus'),
     ),
   },
   imperativus: {
@@ -176,9 +181,7 @@ const ago: TConjugation = {
       ['agor', 'ageris', 'agitur', 'agimur', 'agimini', 'aguntur'],
       ['agebar', 'agebaris', 'agebatu', 'agebamur', 'agebamini', 'agebantur'],
       ['agar', 'ageris', 'agetur', 'agemur', 'agemini', 'agentur'],
-      ['actus sum', 'actus es', 'actus est', 'actus sumus', 'actus estis', 'actus sunt'],
-      ['actus eram', 'actus eras', 'actus erat', 'actus eramus', 'actus eratis', 'actus erant'],
-      ['actus ero', 'actus eris', 'actus erit', 'actus erimus', 'actus eritis', 'actus erunt'],
+      ...indicativeSum('actus'),
     ),
   },
   coniunctivus: {
@@ -191,8 +194,7 @@ const ago: TConjugation = {
     passivum: v(
       ['agar', 'agaris', 'agatur', 'agamur', 'agamini', 'agantur'],
       ['agerer', 'agereris', 'ageretur', 'ageremus', 'ageremini', 'agerentur'],
-      ['actus sim', 'actus sis', 'actus sit', 'actus simus', 'actus sitis', 'actus sint'],
-      ['actus essem', 'actus esses', 'actus esset', 'actus essemus', 'actus essetis', 'actus essent'],
+      ...conjunctiveSum('actus'),
     ),
   },
   imperativus: {
@@ -240,9 +242,7 @@ const capio: TConjugation = {
       ['capior', 'caperis', 'capitur', 'capimur', 'capimini', 'capiuntur'],
       ['capiebar', 'capiebaris', 'capiebatur', 'capiebamus', 'capiebamini', 'capiebantur'],
       ['capiar', 'capieris', 'capietur', 'capiemur', 'capiemini', 'capientur'],
-      ['captus sum', 'captus es', 'captus est', 'captus sumus', 'captus estis', 'captus sunt'],
-      ['captus eram', 'captus eras', 'captus erat', 'captus eramus', 'captus eratis', 'captus erant'],
-      ['captus ero', 'captus eris', 'captus erit', 'captus erimus', 'captus eritis', 'captus erunt'],
+      ...indicativeSum('captus'),
     ),
   },
   coniunctivus: {
@@ -255,8 +255,7 @@ const capio: TConjugation = {
     passivum: v(
       ['capiar', 'capiaris', 'capiatur', 'capiamur', 'capiamini', 'capiantur'],
       ['caperer', 'capereris', 'caperetur', 'caperemur', 'caperemini', 'caperentur'],
-      ['captus sim', 'captus sis', 'captus sit', 'captus simus', 'captus sitis', 'captus sint'],
-      ['captus essem', 'captus esses', 'captus esset', 'captus essemus', 'captus essetis', 'captus essent'],
+      ...conjunctiveSum('captus'),
     ),
   },
   imperativus: {
@@ -287,11 +286,73 @@ const capio: TConjugation = {
     accusativus: 'captum',
     ablativus: 'captu',
   },
-}
+};
+
+const audio: TConjugation = {
+  word: 'słyszeć',
+  indicativus: {
+    activum: v(
+      ['audio', 'audis', 'audit', 'audimus', 'auditis', 'audiunt'],
+      ['audiebam', 'audiebas', 'audiebat', 'audiebamus', 'audiebatis', 'audiebant'],
+      ['audiam', 'audies', 'audiet', 'audiemus', 'audietis', 'audient'],
+      ['audivi', 'audivisti', 'audivit', 'audivimus', 'audivistis', 'audiverunt'],
+      ['audiveram', 'audiveras', 'audiverat', 'audiveramus', 'audiveratis', 'audiverant'],
+      ['audivero', 'audiveris', 'audiverit', 'audiverimus', 'audiveritis', 'audiverint'],
+    ),
+    passivum: v(
+      ['audior', 'audiris', 'auditur', 'audimur', 'audimini', 'audiuntur'],
+      ['audiebar', 'audiebaris', 'audiebatur', 'audiebamur', 'audiebamini', 'audiebantur'],
+      ['audiar', 'audieris', 'audietur', 'audiemur', 'audiemini', 'audientur'],
+      ...indicativeSum('auditus'),
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['audiam', 'audias', 'audiat', 'audiamus', 'audiatis', 'audiant'],
+      ['audirem', 'audires', 'audiret', 'audiremus', 'audiretis', 'audirent'],
+      ['audiverim', 'audiveris', 'audiverit', 'audiverimus', 'audiveritis', 'audiverint'],
+      ['audivissem', 'audivisses', 'audivisset', 'audivissemus', 'audivissetis', 'audivissent'],
+    ),
+    passivum: v(
+      ['audiar', 'audiaris', 'audiatur', 'audiamur', 'audiamini', 'audiantur'],
+      ['audirer', 'audireris', 'audiretur', 'audiremur', 'audiremini', 'audirentur'],
+      ...conjunctiveSum('auditus'),
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'audi', '', '', 'audite', ''],
+      ['', 'audito', 'audito', '', 'auditote', 'audiunto'],
+    ),
+    passivum: v(
+      ['', 'audire', '', '', 'audimini', ''],
+      ['', 'auditor', 'auditor', '', '', 'audiuntor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['audire', 'audivisse', 'auditurum esse'],
+    passivum: ['audiri', 'auditum esse', 'auditum iri'],
+  },
+  participium: {
+    activum: ['audiens', '', 'auditurus'],
+    passivum: ['', 'auditus', 'audiendus'],
+  },
+  gerundium: {
+    genetivus: 'audiendi',
+    dativus: 'audiendo',
+    accusativus: 'audiendum',
+    ablativus: 'audiendo',
+  },
+  supinum: {
+    accusativus: 'auditum',
+    ablativus: 'audito',
+  },
+};
 
 export const words = [
   amo,
   moneo,
   ago,
   capio,
+  audio,
 ]
