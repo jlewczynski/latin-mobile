@@ -532,6 +532,68 @@ const facio: TConjugation = {
   },
 };
 
+const sum: TConjugation = {
+  word: 'być',
+  indicativus: {
+    activum: v(
+      ['sum', 'es', 'est', 'sumus', 'estis', 'sunt'],
+      ['eram', 'eras', 'erat', 'eramus', 'eratis', 'erant'],
+      ['ero', 'eris', 'erit', 'erimus', 'eritis', 'erunt'],
+      ['fui', 'fuisti', 'fuit', 'fuimus', 'fuistis', 'fuerunt'],
+      ['fueram', 'fueras', 'fuerat', 'fueramus', 'fueratis', 'fuerant'],
+      ['fuero', 'fueris', 'fuerit', 'fuerimus', 'fueritis', 'fuerint'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['sim', 'sis', 'sit', 'simus', 'sitis', 'sint'],
+      ['essem', 'esses', 'esset', 'essemus', 'essetis', 'essent'],
+      ['fuerim', 'fueris', 'fuerit', 'fuerimus', 'fueritis', 'fuerint'],
+      ['fuissem', 'fuisses', 'fuisset', 'fuissemus', 'fuissetis', 'fuissent'],
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'es', '', '', 'este', ''],
+      ['', 'esto', 'esto', '', 'estote', 'sunto'],
+    ),
+  },
+  infinitivus: {
+    activum: ['esse', 'fuisse', 'futurum esse'],
+  },
+  participium: {
+    activum: ['', '', 'futurus'],
+  }
+}
+
+const possum: TConjugation = {
+  word: 'móc',
+  indicativus: {
+    activum: v(
+      ['possum', 'potes', 'potest', 'possumus', 'potestis', 'possunt'],
+      ['poteram', 'poteras', 'poterat', 'poteramus', 'poteratis', 'poterant'],
+      ['potero', 'poteris', 'poterit', 'poterimus', 'poteritis', 'poterunt'],
+      ['potui', 'potuisti', 'potuit', 'potuimus', 'potuistis', 'potuerunt'],
+      ['potueram', 'potueras', 'potuerat', 'potueramus', 'potueratis', 'potuerant'],
+      ['potuero', 'potueris', 'potuerit', 'potuerimus', 'potueritis', 'potuerunt'],
+    )
+  },
+  coniunctivus: {
+    activum: v(
+      ['possim', 'possis', 'possit', 'possimus', 'possitis', 'possint'],
+      ['possem', 'posses', 'posset', 'possemus', 'possetis', 'possent'],
+      ['potuerim', 'potueris', 'potuerit', 'potuerimus', 'potueritis', 'potuerint'],
+      ['potuissem', 'potuisses', 'potuisset', 'potuissemus', 'potuissetis', 'potuissent'],
+    )
+  },
+  infinitivus: {
+    activum: ['posse', 'potuisse', ''],
+  },
+  participium: {
+    activum: ['potens', '', ''],
+  }
+}
+
 export const words = [
   amo,
   moneo,
@@ -541,4 +603,6 @@ export const words = [
   eo,
   fero,
   facio,
+  sum,
+  possum,
 ]

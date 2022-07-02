@@ -45,9 +45,13 @@ export type TTenses<T extends string> = Record<T, TNumbers>;
 export type TIndicativeTenses = TTenses<typeof tenses.indicativus[number]>;
 export type TConjunctiveTenses = TTenses<typeof tenses.coniunctivus[number]>;
 export type TImperativeTenses = TTenses<typeof tenses.imperativus[number]>;
-export type TIndicativeMood = Record<TVoice, TIndicativeTenses>;
-export type TConjunctiveMood = Record<TVoice, TConjunctiveTenses>;
-export type TImperativeMood = Record<TVoice, TImperativeTenses>;
+export type TMoods<T> = {
+  activum: T;
+  passivum?: T;
+}
+export type TIndicativeMood = TMoods<TIndicativeTenses>;
+export type TConjunctiveMood = TMoods<TConjunctiveTenses>;
+export type TImperativeMood = TMoods<TImperativeTenses>;
 
 export const gerundiumCases = [
   'genetivus',
@@ -67,15 +71,18 @@ export type TConjugation = {
   word: string;
   indicativus: TIndicativeMood;
   coniunctivus: TConjunctiveMood;
-  imperativus: TImperativeMood;
-  infinitivus: Record<TVoice, [string, string, string]>;
-  participium: Record<TVoice, [string, string, string]>;
-  gerundium: Record<TGerundiumCases, string>;
-  supinum: Record<TSupinumCases, string>;
+  imperativus?: TImperativeMood;
+  infinitivus: TMoods<[string, string, string]>;
+  participium: TMoods<[string, string, string]>;
+  gerundium?: Record<TGerundiumCases, string>;
+  supinum?: Record<TSupinumCases, string>;
 }
 
-function emptyMood<T extends string>(usedTenses: readonly T[]): Record<TVoice, TTenses<T>> {
+function emptyMood<T extends string>(usedTenses: readonly T[], passive: boolean = true): Record<TVoice, TTenses<T>> {
   return voices.reduce((mood, voice) => {
+    if (!passive && voice === 'passivum') {
+      return mood;
+    }
     mood[voice] = usedTenses.reduce((voice, tense) => {
       voice[tense] = {
         singularis: ['', '', ''],
@@ -88,11 +95,13 @@ function emptyMood<T extends string>(usedTenses: readonly T[]): Record<TVoice, T
 }
 
 export function empty(template?: TConjugation): TConjugation {
+  const passive = template ? Boolean(template.indicativus.passivum) : true;
+  const imperative = template ? Boolean(template.imperativus) : true;
   return {
     word: template?.word ?? '',
-    indicativus: emptyMood(tenses.indicativus),
-    coniunctivus: emptyMood(tenses.coniunctivus),
-    imperativus: emptyMood(tenses.imperativus),
+    indicativus: emptyMood(tenses.indicativus, passive),
+    coniunctivus: emptyMood(tenses.coniunctivus, passive),
+    imperativus: imperative ? emptyMood(tenses.imperativus, passive) : undefined,
     infinitivus: {
       activum: ['', '', ''],
       passivum: ['', '', ''],
@@ -101,34 +110,53 @@ export function empty(template?: TConjugation): TConjugation {
       activum: ['', '', ''],
       passivum: ['', '', ''],
     },
-    gerundium: {
+    gerundium: passive ? {
       genetivus: '',
       dativus: '',
       accusativus: '',
       ablativus: '',
-    },
-    supinum: {
+    } : undefined,
+    supinum: passive ? {
       accusativus: '',
       ablativus: '',
-    }
+    } : undefined,
   }
 }
 
-export const testModes = moods.flatMap(m => voices.flatMap(v=> tenses[m].flatMap(t => `${m}.${v}.${t}`)))
-  .concat(['infinitivus', 'participium', 'gerundium+supinum']);
+export const testModes = (template: TConjugation) => {
+  const passive = Boolean(template.indicativus.passivum);
+  const imperative = Boolean(template.imperativus);
+  const result = moods.flatMap(m => tenses[m].flatMap(t => `${m}.activum.${t}`))
+  if (passive) {
+    result.push(
+      ...moods.flatMap(m => tenses[m].flatMap(t => `${m}.passivum.${t}`)),
+      'infinitivus', 'participium', 'gerundium+supinum'
+      );
+  } else {
+    result.push('infinitivus+participium');
+  }
+  if (!imperative) {
+    return result.filter(mode => !mode.startsWith('imperativus'));
+  }
+  return result;
+}
 
 export const getTestModeData = (v: TConjugation, testMode: string): string[] => {
   const parts = testMode.split('.');
   if (parts.length === 1) {
     if (testMode === 'infinitivus') {
-      return v.infinitivus.activum.concat(v.infinitivus.passivum);
+      return v.infinitivus.activum.concat(v.infinitivus.passivum ?? ['', '', '']);
     }
     if (testMode === 'participium') {
-      return v.participium.activum.concat(v.participium.passivum);
+      return v.participium.activum.concat(v.participium.passivum ?? ['', '', '']);
     }
-    if (testMode === 'gerundium+supinum') {
-      return gerundiumCases.map(c => v.gerundium[c]).concat(supinumCases.map(c => v.supinum[c]));
+    if (testMode === 'infinitivus+participium') {
+      return v.infinitivus.activum.concat(v.participium.activum);
     }
+    if (testMode === 'gerundium+supinum' && v.gerundium && v.supinum) {
+      return gerundiumCases.map(c => v.gerundium![c]).concat(supinumCases.map(c => v.supinum![c]));
+    }
+    return [];
   }
   
   let cur: any = v;
@@ -147,11 +175,16 @@ export const setTestModeData = (v: TConjugation, testMode: string, value: string
     if (testMode === 'infinitivus') {
       v.infinitivus.activum = [value[0] ?? '', value[1] ?? '', value[2] ?? ''];
       v.infinitivus.passivum = [value[3] ?? '', value[4] ?? '', value[5] ?? ''];
-    } else if (testMode === 'participium') {
+    }
+    if (testMode === 'participium') {
       v.participium.activum = [value[0] ?? '', value[1] ?? '', value[2] ?? ''];
       v.participium.passivum = [value[3] ?? '', value[4] ?? '', value[5] ?? ''];
     }
-    if (testMode === 'gerundium+supinum') {
+    if (testMode === 'infinitivus+participium') {
+      v.infinitivus.activum = [value[0] ?? '', value[1] ?? '', value[2] ?? ''];
+      v.participium.activum = [value[3] ?? '', value[4] ?? '', value[5] ?? ''];
+    }
+    if (testMode === 'gerundium+supinum' && v.gerundium && v.supinum) {
       v.gerundium.genetivus = value[0] ?? '';
       v.gerundium.dativus = value[1] ?? '';
       v.gerundium.accusativus = value[2] ?? '';
@@ -207,6 +240,12 @@ export const getModeLabels = (testMode: string) => {
       return [
         { section: 'Activum', labels: ['Preasens', 'Perfectum', 'Futurum'] },
         { section: 'Passivum', labels: ['Preasens', 'Perfectum', 'Futurum'] },
+      ];
+    }
+    if (testMode === 'infinitivus+participium') {
+      return [
+        { section: 'Infinitivus', labels: ['Preasens', 'Perfectum', 'Futurum'] },
+        { section: 'Participium', labels: ['Preasens', 'Perfectum', 'Futurum'] },
       ];
     }
     if (testMode === 'gerundium+supinum') {

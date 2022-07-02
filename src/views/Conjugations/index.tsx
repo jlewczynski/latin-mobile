@@ -44,7 +44,7 @@ const Conjugations: React.FC<IProps> = (props) => {
 
   const nextWord = (): TConjugationMode => {
     if (!wordSet.current.length) {
-      wordSet.current = testModes.flatMap(mode => words.map(w => ({...w, mode})));
+      wordSet.current = words.flatMap(w => testModes(w).map(mode => ({...w, mode})));
     }
     if (state.config.random) {
       const index = Math.floor(Math.random() * wordSet.current.length);
