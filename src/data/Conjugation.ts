@@ -1,4 +1,4 @@
-import { TConjugation, TConjunctiveTenses, TImperativeTenses, TIndicativeMood, TIndicativeTenses, TNumbers, TTenses } from "../models/Conjugation";
+import { TConjugation, TConjunctiveTenses, TImperativeTenses, TIndicativeTenses, TNumbers } from "../models/Conjugation";
 
 const t = (str: string[]): TNumbers => ({
   singularis: [str[0] ?? '', str[1] ?? '', str[2] ?? ''],
@@ -349,10 +349,196 @@ const audio: TConjugation = {
   },
 };
 
+const eo: TConjugation = {
+  word: 'iść',
+  indicativus: {
+    activum: v(
+      ['eo', 'is', 'it', 'imus', 'itis', 'eunt'],
+      ['ibam', 'ibas', 'ibat', 'ibamus', 'ibatis', 'ibant'],
+      ['ibo', 'ibis', 'ibit', 'ibimus', 'ibitis', 'ibunt'],
+      ['ii', 'isti', 'iit', 'iimus', 'istis', 'ierunt'],
+      ['ieram', 'ieras', 'ierat', 'ieramus', 'ieratis', 'ierant'],
+      ['iero', 'ieris', 'ierit', 'ierimus', 'ieritis', 'ierunt'],
+    ),
+    passivum: v(
+      ['eor', 'iris', 'itur', 'imur', 'imini', 'euntur'],
+      ['ibar', 'ibaris', 'ibatur', 'ibamur', 'ibamini', 'ibantur'],
+      ['ibor', 'iberis', 'ibitur', 'ibimur', 'ibimini', 'ibuntur'],
+      ...indicativeSum('itus')
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['eam', 'eas', 'eat', 'eamus', 'eatis', 'eant'],
+      ['item', 'ires', 'iret', 'iremus', 'iretis', 'irent'],
+      ['ierim', 'ieris', 'ierit', 'ierimus', 'ieritis', 'ierint'],
+      ['issem', 'isses', 'isset', 'issemus', 'issetis', 'issent'],
+    ),
+    passivum: v(
+      ['ear', 'earis', 'eatur', 'eamur', 'eamini', 'eantur'],
+      ['irer', 'ireris', 'iretur', 'iremus', 'iremini', 'irentur'],
+      ...conjunctiveSum('itus'),
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'i', '', '', 'ite', ''],
+      ['', 'ito', 'ito', '', 'itote', 'eunto'],
+    ),
+    passivum: v(
+      ['', 'ire', '', '', 'imini', ''],
+      ['', 'itor', 'itor', '', '', 'euntor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['ire', 'isse', 'iturum esse'],
+    passivum: ['iri', 'itum esse', 'itum iri'],
+  },
+  participium: {
+    activum: ['iens', '', 'iturus'],
+    passivum: ['', 'itus', 'eundus'],
+  },
+  gerundium: {
+    genetivus: 'eundi',
+    dativus: 'eundo',
+    accusativus: 'eundum',
+    ablativus: 'eundo',
+  },
+  supinum: {
+    accusativus: 'itum',
+    ablativus: 'itu',
+  },
+};
+
+const fero: TConjugation = {
+  word: 'nosić',
+  indicativus: {
+    activum: v(
+      ['fero', 'fers', 'fert', 'feimus', 'feritis', 'ferunt'],
+      ['ferebam', 'ferebas', 'ferebat', 'ferebamus', 'ferebatis', 'ferebant'],
+      ['feram', 'feres', 'feret', 'feremus', 'feretis', 'ferent'],
+      ['tuli', 'tulisti', 'tulit', 'tulimus', 'tulistis', 'tulerunt'],
+      ['tuleram', 'tuleras', 'tulerat', 'tuleramus', 'tuleratis', 'tulerant'],
+      ['tulero', 'tuleris', 'tulerit', 'tulerimus', 'tuleritis', 'tulerint'],
+    ),
+    passivum: v(
+      ['feror', 'ferris', 'fertur', 'ferimur', 'ferimini', 'feruntur'],
+      ['ferebar', 'ferebaris', 'ferebatur', 'ferebamur', 'ferebamini', 'ferebantur'],
+      ['ferar', 'fereris', 'feretur', 'feremur', 'feremini', 'ferentur'],
+      ...indicativeSum('latus'),
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['feram', 'feras', 'ferat', 'feramus', 'feratis', 'ferant'],
+      ['ferrem', 'ferres', 'ferret', 'ferremus', 'ferretis', 'ferrent'],
+      ['tulerim', 'tuleris', 'tulerit', 'tulerimus', 'tuleritis', 'tulerint'],
+      ['tulissem', 'tulisses', 'tulisset', 'tulissemus', 'tulissetis', 'tulissent'],
+    ),
+    passivum: v(
+      ['ferar', 'feraris', 'feratur', 'feramur', 'feramini', 'ferantur'],
+      ['ferrer', 'ferreris', 'ferretur', 'ferremur', 'ferremini', 'ferrentur'],
+      ...conjunctiveSum('latus'),
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'fer', '', '', 'ferte', ''],
+      ['', 'ferto', 'ferto', '', 'fertote', 'ferunto'],
+    ),
+    passivum: v(
+      ['', 'ferre', '', '', 'ferimini', ''],
+      ['', 'fertor', 'fertor', '', '', 'feruntor'],
+    ),
+  },
+  infinitivus: {
+    activum: ['ferre', 'tulisse', 'laturum esse'],
+    passivum: ['ferri', 'latum esse', 'latum iri'],
+  },
+  participium: {
+    activum: ['ferens', '', 'laturus'],
+    passivum: ['', 'latus', 'ferendus'],
+  },
+  gerundium: {
+    genetivus: 'ferendi',
+    dativus: 'ferendo',
+    accusativus: 'ferendum',
+    ablativus: 'ferendo',
+  },
+  supinum: {
+    accusativus: 'latum',
+    ablativus: 'latu',
+  },
+}
+
+const facio: TConjugation = {
+  word: 'robić',
+  indicativus: {
+    activum: v(
+      ['facio', 'facis', 'facit', 'facimus', 'facitis', 'faciunt'],
+      ['faciebam', 'faciebas', 'faciebat', 'faciebamus', 'faciebatis', 'faciebant'],
+      ['faciam', 'facies', 'faciet', 'faciemus', 'facietis', 'facient'],
+      ['feci', 'fecisti', 'fecit', 'fecimus', 'fecistis', 'fecerunt'],
+      ['feceram', 'feceras', 'fecerat', 'feceramus', 'feceratis', 'fecerant'],
+      ['fecero', 'feceris', 'fecerit', 'fecerimus', 'feceritis', 'fecerint'],
+    ),
+    passivum: v(
+      ['fio', 'fis', 'fit', 'fimus', 'fitis', 'fiunt'],
+      ['fiebam', 'fiebas', 'fiebat', 'fiebamus', 'fiebatis', 'fiebant'],
+      ['fiam', 'fies', 'fiet', 'fiemus', 'fietis', 'fient'],
+      ...indicativeSum('factus'),
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['faciam', 'facias', 'faciat', 'faciamus', 'faciatis', 'faciant'],
+      ['facerem', 'faceres', 'faceret', 'faceremus', 'faceretis', 'facerent'],
+      ['fecerim', 'feceris', 'fecerit', 'fecerimus', 'feceritis', 'fecerint'],
+      ['fecissem', 'fecisses', 'fecisset', 'fecissemus', 'fecissetis', 'fecissent'],
+    ),
+    passivum: v(
+      ['fiam', 'fias', 'fiat', 'fiamus', 'fiatis', 'fiant'],
+      ['fierem', 'fieres', 'fieret', 'fieremus', 'fieretis', 'fierent'],
+      ...conjunctiveSum('factus'),
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'fac', '', '', 'facite', ''],
+      ['', 'facito', 'facito', '', 'facitote', 'faciunto'],
+    ),
+    passivum: v(
+      ['', 'fi', '', '', 'fite', ''],
+      ['', 'fito', 'fito', '', 'fitote', 'fiunt'],
+    ),
+  },
+  infinitivus: {
+    activum: ['facere', 'fecisse', 'facturum esse'],
+    passivum: ['fieri', 'factum esse', 'facturum iri'],
+  },
+  participium: {
+    activum: ['faciens', '', 'facturus'],
+    passivum: ['', 'factus', 'faciendus'],
+  },
+  gerundium: {
+    genetivus: 'faciendi',
+    dativus: 'faciendo',
+    accusativus: 'faciendum',
+    ablativus: 'faciendo',
+  },
+  supinum: {
+    accusativus: 'factum',
+    ablativus: 'factu',
+  },
+};
+
 export const words = [
   amo,
   moneo,
   ago,
   capio,
   audio,
+  eo,
+  fero,
+  facio,
 ]
