@@ -594,6 +594,96 @@ const possum: TConjugation = {
   }
 }
 
+const volo: TConjugation = {
+  word: 'chcieć',
+  indicativus: {
+    activum: v(
+      ['volo', 'vis', 'vult', 'volumus', 'vultis', 'volunt'],
+      ['volebam', 'volebas', 'volebat', 'volebamus', 'volebatis', 'volebant'],
+      ['volam', 'voles', 'volet', 'volemus', 'voletis', 'volent'],
+      ['volui', 'voluisti', 'voluit', 'voluimus', 'voluistis', 'voluerunt'],
+      ['volueram', 'volueras', 'voluerat', 'volueramus', 'volueratis', 'voluerant'],
+      ['voluero', 'volueris', 'voluerit', 'voluerimus', 'volueritis', 'voluerint'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['velim', 'velis', 'velit', 'velimus', 'velitis', 'velint'],
+      ['vellem', 'velles', 'vellet', 'vellemus', 'velletis', 'vellent'],
+      ['voluerim', 'volueris', 'voluerit', 'voluerimus', 'volueritis', 'voluerint'],
+      ['voluissem', 'voluisses', 'voluisset', 'voluissemus', 'voluissetis', 'voluissent'],
+    ),
+  },
+  infinitivus: {
+    activum: ['velle', 'voluisse', ''],
+  },
+  participium: {
+    activum: ['volens', '', ''],
+  },
+};
+
+const nolo: TConjugation = {
+  word: 'nie chcieć',
+  indicativus: {
+    activum: v(
+      ['nolo', 'non vis', 'non vult', 'nolumus', 'non vultis', 'nolunt'],
+      ['nolebam', 'nolebas', 'nolebat', 'nolebamus', 'nolebatis', 'nolebant'],
+      ['nolam', 'noles', 'nolet', 'nolemus', 'noletis', 'nolent'],
+      ['nolui', 'noluisti', 'noluit', 'noluimus', 'noluistis', 'noluerunt'],
+      ['nolueram', 'nolueras', 'noluerat', 'nolueramus', 'nolueratis', 'noluerant'],
+      ['noluero', 'nolueris', 'noluerit', 'noluerimus', 'nolueritis', 'noluerint'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['nolim', 'nolis', 'nolit', 'nolimus', 'nolitis', 'nolint'],
+      ['nollem', 'nolles', 'nollet', 'nollemus', 'nolletis', 'nollent'],
+      ['noluerim', 'nolueris', 'noluerit', 'noluerimus', 'nolueritis', 'noluerint'],
+      ['noluissem', 'noluisses', 'noluisset', 'noluissemus', 'noluissetis', 'noluissent'],
+    ),
+  },
+  imperativus: {
+    activum: v(
+      ['', 'noli', '', '', 'nolite', ''],
+      ['', 'nolito', 'nolito', '', 'nolitote', 'nolunto'],
+    ),
+  },
+  infinitivus: {
+    activum: ['nolle', 'noluisse', ''],
+  },
+  participium: {
+    activum: ['nolens', '', ''],
+  },
+};
+
+const malo: TConjugation = {
+  word: 'woleć',
+  indicativus: {
+    activum: v(
+      ['malo', 'mavis', 'mavult', 'malumus', 'mavultis', 'malunt'],
+      ['malebam', 'malebas', 'malebat', 'malebamus', 'malebatis', 'malebant'],
+      ['malam', 'males', 'malet', 'malemus', 'maletis', 'malent'],
+      ['malui', 'maluisti', 'maluit', 'maluimus', 'maluistis', 'maluerunt'],
+      ['malueram', 'malueras', 'maluerat', 'malueramus', 'malueratis', 'maluerant'],
+      ['maluero', 'malueris', 'maluerit', 'maluerimus', 'malueritis', 'maluerint'],
+    ),
+  },
+  coniunctivus: {
+    activum: v(
+      ['malim', 'malis', 'malit', 'malimus', 'malitis', 'malint'],
+      ['mallem', 'malles', 'mallet', 'mallemus', 'malletis', 'mallent'],
+      ['maluerim', 'malueris', 'maluerit', 'maluerimus', 'malueritis', 'maluerint'],
+      ['maluissem', 'maluisses', 'maluisset', 'maluissemus', 'maluissetis', 'maluissent'],
+    ),
+  },
+  infinitivus: {
+    activum: ['malle', 'maluisse', ''],
+  },
+  participium: {
+    activum: ['malens', '', ''],
+  },
+};
+
 export const words = [
   amo,
   moneo,
@@ -605,4 +695,7 @@ export const words = [
   facio,
   sum,
   possum,
+  volo,
+  nolo,
+  malo,
 ]
