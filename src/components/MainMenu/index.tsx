@@ -14,15 +14,23 @@ const MainMenu: IMainMenu = ({children}) => {
 
 interface IMenuItemProps {
   link?: string;
+  mode?: string;
   disabled?: boolean;
 }
 
 const MainMenuItem: React.FC<PropsWithChildren<IMenuItemProps>> = (props) => {
-  const { link, disabled, children } = props;
+  const { link, mode, disabled, children } = props;
+  const queries = [];
+  if (link) {
+    queries.push(`view=${link}`);
+  }
+  if (mode) {
+    queries.push(`mode=${mode}`);
+  }
 
   return <a
     className={cx(styles.button, disabled && styles.disabled)}
-    href={`?view=${link}`}
+    href={queries.length ? `?${queries.join('&')}` : '#'}
   >
     {children}
   </a>

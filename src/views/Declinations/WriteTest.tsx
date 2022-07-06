@@ -5,55 +5,12 @@ import { words } from '../../data/Declination';
 import { IViewProps } from '..';
 import TestLayout, { IWordStats, IWordStatsSet } from '../../components/Layout/TestLayout';
 import { capitalize } from '../../utils';
+import { allCategories, IConfig, IPersistentState, loadState } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
 
-interface IConfig {
-  random: boolean;
-  categories: string[];
-}
-
-interface IPersistentState {
-  config: IConfig;
-  wordStats: IWordStatsSet;
-}
-
-const allCategories = Array.from(new Set(words.map(w => w.category)).values());
-
-const defaultState: IPersistentState = {
-  config: {
-    random: false,
-    categories: [...allCategories],
-  },
-  wordStats: {
-  },
-}
-
-const loadState = (persistentState?: string): IPersistentState => {
-  const result = defaultState;
-  const loaded = JSON.parse(persistentState ?? '{}');
-  if (loaded.config) {
-    if (loaded.config.random) {
-      result.config.random = Boolean(loaded.config.random);
-    }
-    if (loaded.config.categories && Array.isArray(loaded.config.categories)) {
-      result.config.categories = [...(loaded.config.categories as any[]).map(v => String(v))]
-    }
-  }
-  if (loaded.wordStats) {
-    result.wordStats = {};
-    Object.entries<Partial<IWordStats>>(loaded.wordStats).forEach(([word, {repeats, errors}]) => {
-      result.wordStats[word] = {
-        repeats: repeats ?? 0,
-        errors: errors ?? 0,
-      }
-    });
-  }
-  return result;
-}
-
-const Declinations: React.FC<IProps> = (props) => {
+const DeclinationsWrite: React.FC<IProps> = (props) => {
   const { persistentState, updatePersistentState: updateStats } = props;
   const state: IPersistentState = loadState(persistentState);
 
@@ -132,4 +89,4 @@ const Declinations: React.FC<IProps> = (props) => {
     </TestLayout>);
 }
 
-export default Declinations;
+export default DeclinationsWrite;

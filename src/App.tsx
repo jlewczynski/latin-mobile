@@ -5,7 +5,8 @@ import styles from './App.module.css';
 const App: React.FC = () => {
   const search = new URLSearchParams(window.location.search);
   const view = search.get('view') ?? '';
-  const Component = views[view];
+  const mode = search.get('mode') ?? '';
+  const Component = views[`${view}${mode ? '.' + mode : ''}`];
 
   const [localState, setLocalState] = React.useState<string | undefined>(() => (localStorage.getItem(view) || undefined));
 
