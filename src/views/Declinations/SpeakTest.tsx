@@ -5,16 +5,17 @@ import { words } from '../../data/Declination';
 import { IViewProps } from '..';
 import TestLayout from '../../components/Layout/TestLayout';
 import { capitalize } from '../../utils';
-import { allCategories, IConfig, IPersistentState, loadState } from './StateUtils';
+import { allCategories, IConfig, loadState } from './StateUtils';
+import { IPersistentState } from '../../utils/ViewsPersistentState';
 
 interface IProps extends IViewProps {
 }
 
 const DeclinationsSpeak: React.FC<IProps> = (props) => {
   const { persistentState, updatePersistentState: updateStats } = props;
-  const state: IPersistentState = loadState(persistentState);
+  const state = loadState(persistentState);
 
-  const doUpdate = (newState: Partial<IPersistentState>) => {
+  const doUpdate = (newState: Partial<IPersistentState<IConfig>>) => {
     updateStats(JSON.stringify({
       ...state,
       ...newState,

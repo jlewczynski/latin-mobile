@@ -1,37 +1,41 @@
 import React from 'react';
 import { IViewProps } from '..';
 import Conjugaction, { TConjugationMode } from '../../components/Conjugaction';
-import TestLayout, { IWordStatsSet } from '../../components/Layout/TestLayout';
+import TestLayout, { IWordStats, IWordStatsSet } from '../../components/Layout/TestLayout';
 import { words } from '../../data/Conjugation';
-import { empty, TErrorList, testModes, validate } from '../../models/Conjugation';
+import { empty, modeLabel, TErrorList, testModes, validate } from '../../models/Conjugation';
+import { createStateLoader, IPersistentState } from '../../utils/ViewsPersistentState';
 
 interface IProps extends IViewProps {
 }
 
 interface IConfig {
   random: boolean;
+  modes: string[];
 }
 
-interface IPersistentState {
-  config: IConfig;
-  wordStats: IWordStatsSet;
-}
+const allModes = testModes();
 
-const defaultState: IPersistentState = {
-  config: {
+const loadState = createStateLoader<IConfig>(
+  {
     random: false,
+    modes: [...allModes],
   },
-  wordStats: {
-  },
-}
+  (obj, state) => {
+    if (obj.random) {
+      state.random = Boolean(obj.random);
+    }
+    if (obj.modes && Array.isArray(obj.modes)) {
+      state.modes = [...(obj.modes as any[]).map(v => String(v))]
+    }
+  }
+);
 
 const Conjugations: React.FC<IProps> = (props) => {
   const { persistentState, updatePersistentState: updateStats } = props;
-  const state: IPersistentState = persistentState ?
-    JSON.parse(persistentState) :
-    defaultState;
+  const state = loadState(persistentState);
 
-  const doUpdate = (newState: Partial<IPersistentState>) => {
+  const doUpdate = (newState: Partial<IPersistentState<IConfig>>) => {
     updateStats(JSON.stringify({
       ...state,
       ...newState,
@@ -42,9 +46,19 @@ const Conjugations: React.FC<IProps> = (props) => {
 
   const wordSet = React.useRef<TConjugationMode[]>([]);
 
+  React.useEffect(() => {
+    wordSet.current = words.flatMap(w =>
+      testModes(w)
+      .filter(m => state.config.modes.includes(m))
+      .map(mode => ({...w, mode})));
+  }, [state.config.modes.join(' ')]);
+
   const nextWord = (): TConjugationMode => {
     if (!wordSet.current.length) {
-      wordSet.current = words.flatMap(w => testModes(w).map(mode => ({...w, mode})));
+      wordSet.current = words.flatMap(w =>
+        testModes(w)
+        .filter(m => state.config.modes.includes(m))
+        .map(mode => ({...w, mode})));
     }
     if (state.config.random) {
       const index = Math.floor(Math.random() * wordSet.current.length);
@@ -53,6 +67,19 @@ const Conjugations: React.FC<IProps> = (props) => {
       return wordSet.current.shift()!;
     }
   };
+
+  const toggleMode = (mode: string, checked: boolean) => {
+    let modes;
+    if (checked) {
+      modes = [
+        ...state.config.modes,
+        mode,
+      ];
+    } else {
+      modes = state.config.modes.filter(m => m !== mode);
+    }
+    updateConfig({ modes });
+  }
 
   return (
     <TestLayout<TConjugationMode, TErrorList>
@@ -70,6 +97,18 @@ const Conjugations: React.FC<IProps> = (props) => {
             onChange={e => updateConfig({ random: e.target.checked })}
           />
         </label>
+        <div>
+          <div>Tenses</div>
+          {allModes.map(mode => <div>
+            <input
+              type={'checkbox'}
+              key={mode}
+              checked={state.config.modes.includes(mode)}
+              onChange={e => toggleMode(mode, e.target.checked)}
+            />
+            <span>{modeLabel(mode)}</span>
+          </div>)}
+        </div>
       </>}
     >
       {(answer, setAnswer, errorList, hint) =>

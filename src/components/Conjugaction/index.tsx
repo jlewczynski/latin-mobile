@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { getModeLabels, getTestModeData, setTestModeData, TConjugation, TErrorList } from '../../models/Conjugation';
+import { getModeLabels, getTestModeData, modeLabel, setTestModeData, TConjugation, TErrorList } from '../../models/Conjugation';
 import { capitalize } from '../../utils';
 import TestInputs from '../TestInput';
 import styles from './styles.module.css';
@@ -42,7 +42,7 @@ const Conjugaction: React.FC<IProps> = (props) => {
 
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
-    <h3 className={styles.mode}>{capitalize(word.mode.replaceAll('.', ' ').replaceAll('+', ' & '))}</h3>
+    <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
     {labels.map(({section, labels, startIndex}) => <Fragment key={section}>
       <h3>{capitalize(section)}</h3>
       <TestInputs inputRefs={inputRefs}>

@@ -39,6 +39,7 @@
 .settingsPanel {
   position: absolute;
   top: 48px;
+  bottom: 64px;
   background-color: #004201;
   left: 0px;
   width: 100%;
@@ -47,4 +48,5 @@
   border-radius: 0 0 5px 5px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  overflow-y: auto;
 }
