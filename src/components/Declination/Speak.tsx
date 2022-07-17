@@ -32,7 +32,7 @@ const Declination: React.FC<IProps> = (props) => {
 
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
-    <div className={styles.testSpace}>
+    <div className={styles.testSpace} key={word.word}>
       {numbers.map(n => <div key={n}>
         <h3>{capitalize(n)}</h3>
         {cases.map(c => <TestButton key={`${n}-${c}`} name={capitalize(c)} value={word[n][c] ?? ''}/>)}
