@@ -6,22 +6,26 @@
 }
 
 .header {
-  height: 48px;
+  flex: 0 0 48px;
 }
 
 .body {
-  height: calc(100% - 112px);
-  overflow: auto;
+  flex: 1 1 calc(100% - 112px);
   padding: 10px;
-  margin-bottom: 64px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .footer {
-  position: fixed;
-  bottom: 0px;
+  flex: 1 0 64px;
   width: 100%;
-  height: 64px;
   padding: 10px 5px;
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -2px 4px 2px #00000030;
 }
 
 .submit {
@@ -31,6 +35,8 @@
   color: white;
   border: none;
   border-radius: 5px;
+  margin-bottom: 10px;
+  height: 44px;
 }
 
 .submit:disabled {

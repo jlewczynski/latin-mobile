@@ -1,7 +1,7 @@
 import React from 'react';
 import { IViewProps } from '..';
 import Conjugaction, { TConjugationMode } from '../../components/Conjugaction';
-import TestLayout, { IWordStats, IWordStatsSet } from '../../components/Layout/TestLayout';
+import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { words } from '../../data/Conjugation';
 import { empty, modeLabel, TErrorList, testModes, validate } from '../../models/Conjugation';
 import { createStateLoader, IPersistentState } from '../../utils/ViewsPersistentState';
@@ -82,7 +82,7 @@ const Conjugations: React.FC<IProps> = (props) => {
   }
 
   return (
-    <TestLayout<TConjugationMode, TErrorList>
+    <WriteTestLayout<TConjugationMode, TErrorList>
       nextWord={nextWord}
       empty={t => ({ ...empty(t), mode: t?.mode ?? '' })}
       validate={(t, a) => validate(t, a, a.mode)}
@@ -113,7 +113,7 @@ const Conjugations: React.FC<IProps> = (props) => {
     >
       {(answer, setAnswer, errorList, hint) =>
         <Conjugaction word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </TestLayout>);
+    </WriteTestLayout>);
 }
 
 export default Conjugations;

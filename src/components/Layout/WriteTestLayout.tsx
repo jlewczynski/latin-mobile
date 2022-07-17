@@ -1,15 +1,9 @@
 import React from 'react';
 import BasicLayout from './BasicLayout';
-import Stats from '../../components/Stats';
+import Stats from '../Stats';
 import styles from './styles.module.css';
 import cx from 'classnames';
-
-export interface IWordStats {
-  repeats: number;
-  errors: number;
-}
-
-export type IWordStatsSet = Record<string, IWordStats>;
+import type { IWordStats, IWordStatsSet } from '../../models/WordStats';
 
 interface IProps<T extends { word: string }, U> {
   nextWord: () => T;
@@ -21,7 +15,7 @@ interface IProps<T extends { word: string }, U> {
   children: (answer: T, onChange: (v: T) => void, errors?: U, hint?: T) => React.ReactNode;
 }
 
-function TestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
+function WriteTestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
   const {
     nextWord,
     empty,
@@ -97,4 +91,4 @@ function TestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
     </BasicLayout>);
 }
 
-export default TestLayout;
+export default WriteTestLayout;

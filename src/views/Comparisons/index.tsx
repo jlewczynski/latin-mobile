@@ -1,9 +1,10 @@
 import React from 'react';
 import { IViewProps } from '..';
 import Comparison from '../../components/Comparison';
-import TestLayout, { IWordStatsSet } from '../../components/Layout/TestLayout';
+import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { words } from '../../data/Comparison';
 import { empty, TComparison, TErrorList, validate } from '../../models/Comparison';
+import type { IWordStatsSet } from '../../models/WordStats';
 
 interface IProps extends IViewProps {
 }
@@ -55,7 +56,7 @@ const Comparisons: React.FC<IProps> = (props) => {
   };
 
   return (
-    <TestLayout<TComparison, TErrorList>
+    <WriteTestLayout<TComparison, TErrorList>
       nextWord={nextWord}
       empty={empty}
       validate={validate}
@@ -74,7 +75,7 @@ const Comparisons: React.FC<IProps> = (props) => {
     >
       {(answer, setAnswer, errorList, hint) =>
         <Comparison word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </TestLayout>);
+    </WriteTestLayout>);
 }
 
 export default Comparisons;

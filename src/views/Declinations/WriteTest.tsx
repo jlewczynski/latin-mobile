@@ -1,9 +1,9 @@
 import React from 'react';
-import Declination from '../../components/Declination';
+import DeclinationWrite from '../../components/Declination/Write';
 import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
 import { words } from '../../data/Declination';
 import { IViewProps } from '..';
-import TestLayout from '../../components/Layout/TestLayout';
+import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { capitalize } from '../../utils';
 import { allCategories, IConfig, loadState } from './StateUtils';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
@@ -56,7 +56,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
   }
 
   return (
-    <TestLayout<TDeclination, TErrorList>
+    <WriteTestLayout<TDeclination, TErrorList>
       nextWord={nextWord}
       empty={empty}
       validate={validate}
@@ -86,8 +86,8 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
       </>}
     >
       {(answer, setAnswer, errorList, hint) =>
-        <Declination word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </TestLayout>);
+        <DeclinationWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
+    </WriteTestLayout>);
 }
 
 export default DeclinationsWrite;

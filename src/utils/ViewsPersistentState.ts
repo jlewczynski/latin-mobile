@@ -1,4 +1,4 @@
-import { IWordStats, IWordStatsSet } from "../components/Layout/TestLayout";
+import type { IWordStats, IWordStatsSet } from "../models/WordStats";
 
 export interface IPersistentState<T> {
   config: T;

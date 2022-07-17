@@ -1,12 +1,12 @@
 import React from 'react';
-import Declination from '../../components/Declination';
+import DeclinationSpeak from '../../components/Declination/Speak';
 import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
 import { words } from '../../data/Declination';
 import { IViewProps } from '..';
-import TestLayout from '../../components/Layout/TestLayout';
 import { capitalize } from '../../utils';
 import { allCategories, IConfig, loadState } from './StateUtils';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
+import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
 
 interface IProps extends IViewProps {
 }
@@ -56,10 +56,8 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
   }
 
   return (
-    <TestLayout<TDeclination, TErrorList>
+    <SpeakTestLayout<TDeclination>
       nextWord={nextWord}
-      empty={empty}
-      validate={validate}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
       settings={<>
@@ -85,9 +83,9 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
         </div>
       </>}
     >
-      {(answer, setAnswer, errorList, hint) =>
-        <Declination word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </TestLayout>);
+      {(word) =>
+        <DeclinationSpeak word={word} />}
+    </SpeakTestLayout>);
 }
 
 export default DeclinationsSpeak;
