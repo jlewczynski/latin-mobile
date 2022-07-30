@@ -2,26 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import { cases, numbers, TDeclination } from '../../models/Declination';
 import { capitalize } from '../../utils';
-import cx from 'classnames';
-
-interface ITestButtonProps {
-  name: string;
-  value: string;
-}
-
-const TestButton: React.FC<ITestButtonProps> = (props) => {
-  const {name, value} = props;
-  const [visible, setVisible] = React.useState(false);
-
-  return (
-  <button
-    className={cx(styles.testButton, visible && styles.shown)}
-    onClick={() => setVisible(true)}
-  >
-    {!visible && name}
-    {visible && value}
-  </button>);
-}
+import TestButton from '../TestButton';
 
 interface IProps {
   word: TDeclination;

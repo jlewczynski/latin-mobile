@@ -1,9 +1,10 @@
 import React from "react";
-import Conjugations from "./Conjugations";
+import ConjugationsWrite from "./Conjugations/WriteTest";
 import Comparisons from "./Comparisons";
 import DeclinationsWrite from "./Declinations/WriteTest";
 import MainView from "./Main";
 import DeclinationsSpeak from "./Declinations/SpeakTest";
+import ConjugationSpeak from "./Conjugations/SpeakTest";
 
 export interface IViewProps {
   persistentState?: string;
@@ -15,5 +16,6 @@ export const views: Record<string, React.FC<IViewProps>> = {
   'declination.write': DeclinationsWrite,
   'declination.speak': DeclinationsSpeak,
   'comparison': Comparisons,
-  'conjugation': Conjugations,
+  'conjugation.write': ConjugationsWrite,
+  'conjugation.speak': ConjugationSpeak,
 }

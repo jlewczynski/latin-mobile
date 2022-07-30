@@ -1,6 +1,6 @@
 import React from 'react';
 import DeclinationSpeak from '../../components/Declination/Speak';
-import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
+import { TDeclination } from '../../models/Declination';
 import { words } from '../../data/Declination';
 import { IViewProps } from '..';
 import { capitalize } from '../../utils';

@@ -15,7 +15,7 @@ interface IProps {
   hint?: TConjugationMode;
 };
 
-const Conjugaction: React.FC<IProps> = (props) => {
+const ConjugactionWrite: React.FC<IProps> = (props) => {
   const { word, onChange, errors, hint } = props;
 
   const inputRefs = React.useRef<HTMLInputElement[]>([]);
@@ -60,4 +60,4 @@ const Conjugaction: React.FC<IProps> = (props) => {
   </div>
 }
 
-export default Conjugaction;
+export default ConjugactionWrite;

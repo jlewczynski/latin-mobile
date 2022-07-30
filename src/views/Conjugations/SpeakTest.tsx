@@ -1,6 +1,8 @@
 import React from 'react';
 import { IViewProps } from '..';
-import Conjugaction, { TConjugationMode } from '../../components/Conjugaction';
+import ConjugactionSpeak from '../../components/Conjugaction/Speak';
+import ConjugactionWrite, { TConjugationMode } from '../../components/Conjugaction/Write';
+import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { words } from '../../data/Conjugation';
 import { empty, modeLabel, TErrorList, testModes, validate } from '../../models/Conjugation';
@@ -82,10 +84,8 @@ const Conjugations: React.FC<IProps> = (props) => {
   }
 
   return (
-    <WriteTestLayout<TConjugationMode, TErrorList>
+    <SpeakTestLayout<TConjugationMode>
       nextWord={nextWord}
-      empty={t => ({ ...empty(t), mode: t?.mode ?? '' })}
-      validate={(t, a) => validate(t, a, a.mode)}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
       settings={<>
@@ -111,9 +111,9 @@ const Conjugations: React.FC<IProps> = (props) => {
         </div>
       </>}
     >
-      {(answer, setAnswer, errorList, hint) =>
-        <Conjugaction word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </WriteTestLayout>);
+      {(word) =>
+        <ConjugactionSpeak word={word} />}
+    </SpeakTestLayout>);
 }
 
 export default Conjugations;
