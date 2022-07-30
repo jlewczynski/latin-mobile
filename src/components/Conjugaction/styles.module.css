@@ -1,11 +1,22 @@
-.container {}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 32px);
+}
 
 .word {
   text-align: center;
+  flex: 0 0 32px;
 }
 
 .mode {
   text-align: center;
   font-size: 14px;
   font-style: italic;
+  flex: 0 0 20px;
+}
+
+.testSpace {
+  flex: 1 1 calc(100% - 52px);
+  overflow: auto;
 }

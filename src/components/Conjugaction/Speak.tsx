@@ -26,11 +26,13 @@ const ConjugactionSpeak: React.FC<IProps> = (props) => {
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
     <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
-    {labels.map(({section, labels, startIndex}) => <Fragment key={section}>
-      <h3>{capitalize(section)}</h3>
-      {labels.map((label, i) =>
-        <TestButton key={`${label}`} name={capitalize(label)} value={data[startIndex + i]} />)}
-    </Fragment>)}
+    <div className={styles.testSpace} key={`${word.word}-${word.mode}`}>
+      {labels.map(({section, labels, startIndex}) => <Fragment key={section}>
+        <h3>{capitalize(section)}</h3>
+        {labels.map((label, i) =>
+          <TestButton key={`${label}`} name={capitalize(label)} value={data[startIndex + i]} />)}
+      </Fragment>)}
+    </div>
   </div>
 }
 
