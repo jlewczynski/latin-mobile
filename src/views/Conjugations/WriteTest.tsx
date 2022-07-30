@@ -78,7 +78,7 @@ const Conjugations: React.FC<IProps> = (props) => {
         </label>
         <div>
           <div>Tenses</div>
-          {allModes.map(mode => <div>
+          {allModes.map(mode => <div key={mode}>
             <input
               type={'checkbox'}
               key={mode}

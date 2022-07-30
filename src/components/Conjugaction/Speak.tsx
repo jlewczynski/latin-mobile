@@ -3,10 +3,7 @@ import { getModeLabels, getTestModeData, modeLabel, TConjugation } from '../../m
 import { capitalize } from '../../utils';
 import TestButton from '../TestButton';
 import styles from './styles.module.css';
-
-export interface TConjugationMode extends TConjugation {
-  mode: string;
-}
+import { TConjugationMode } from './Write';
 
 interface IProps {
   word: TConjugationMode;
