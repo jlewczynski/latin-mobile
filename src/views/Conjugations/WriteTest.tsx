@@ -4,32 +4,11 @@ import ConjugactionWrite, { TConjugationMode } from '../../components/Conjugacti
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { words } from '../../data/Conjugation';
 import { empty, modeLabel, TErrorList, testModes, validate } from '../../models/Conjugation';
-import { createStateLoader, IPersistentState } from '../../utils/ViewsPersistentState';
+import { IPersistentState } from '../../utils/ViewsPersistentState';
+import { allModes, IConfig, loadState } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
-
-interface IConfig {
-  random: boolean;
-  modes: string[];
-}
-
-const allModes = testModes();
-
-const loadState = createStateLoader<IConfig>(
-  {
-    random: false,
-    modes: [...allModes],
-  },
-  (obj, state) => {
-    if (obj.random) {
-      state.random = Boolean(obj.random);
-    }
-    if (obj.modes && Array.isArray(obj.modes)) {
-      state.modes = [...(obj.modes as any[]).map(v => String(v))]
-    }
-  }
-);
 
 const Conjugations: React.FC<IProps> = (props) => {
   const { persistentState, updatePersistentState: updateStats } = props;
