@@ -414,7 +414,7 @@ const fero: TConjugation = {
   word: 'nosić',
   indicativus: {
     activum: v(
-      ['fero', 'fers', 'fert', 'feimus', 'feritis', 'ferunt'],
+      ['fero', 'fers', 'fert', 'ferimus', 'feritis', 'ferunt'],
       ['ferebam', 'ferebas', 'ferebat', 'ferebamus', 'ferebatis', 'ferebant'],
       ['feram', 'feres', 'feret', 'feremus', 'feretis', 'ferent'],
       ['tuli', 'tulisti', 'tulit', 'tulimus', 'tulistis', 'tulerunt'],
