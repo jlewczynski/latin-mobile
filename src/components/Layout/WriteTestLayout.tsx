@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import cx from 'classnames';
 import type { IWordStats, IWordStatsSet } from '../../models/WordStats';
 
-interface IProps<T extends { word: string }, U> {
+interface IProps<T extends { word: string, mode?: string }, U> {
   nextWord: () => T;
   empty: (template?: T) => T;
   validate: (template: T, answer: T) => U | null;
@@ -15,7 +15,7 @@ interface IProps<T extends { word: string }, U> {
   children: (answer: T, onChange: (v: T) => void, errors?: U, hint?: T) => React.ReactNode;
 }
 
-function WriteTestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
+function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IProps<T, U>) {
   const {
     nextWord,
     empty,
@@ -26,21 +26,24 @@ function WriteTestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
     children,
   } = props;
 
-  const updateWordStat = (word: string, val: Partial<IWordStats>) =>
+  const updateWordStat = (word: string, val: Partial<IWordStats>, mode?: string) => {
+    const key = `${word}${mode && ':' + mode}`;
     onUpdateStats({
       ...wordStats,
-      [word]: {
-        ...wordStats[word] ?? { repeats: 0, errors: 0 },
+      [key]: {
+        ...wordStats[key] ?? { repeats: 0, errors: 0 },
         ...val,
       }
     });
+  }
 
   const [template, setTemplate] = React.useState(() => nextWord());
   const [answer, setAnswer] = React.useState(() => empty(template));
   const [errorList, setErrorList] = React.useState<U>();
   const [showHint, setShowHint] = React.useState(false);
 
-  const { repeats, errors } = wordStats[template.word] ?? { repeats: 0, errors: 0};
+  const key = `${template.word}${template.mode && ':' + template.mode}`;
+  const { repeats, errors } = wordStats[key] ?? { repeats: 0, errors: 0};
 
   const next = () => {
     const next = nextWord();
@@ -56,10 +59,10 @@ function WriteTestLayout<T extends { word: string }, U>(props: IProps<T, U>) {
     } else {
       const result = validate(template, answer);
       if (result) {
-        updateWordStat(template.word, { errors: errors + 1 });
+        updateWordStat(template.word, { errors: errors + 1 }), template.mode;
         setErrorList(result);
       } else {
-        updateWordStat(template.word, { repeats: repeats + 1 });
+        updateWordStat(template.word, { repeats: repeats + 1 }, template.mode);
         next();
       }
     }

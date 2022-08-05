@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import cx from 'classnames';
 import type { IWordStats, IWordStatsSet } from '../../models/WordStats';
 
-interface IProps<T extends { word: string }> {
+interface IProps<T extends { word: string, mode?: string }> {
   nextWord: () => T;
   wordStats: IWordStatsSet;
   onUpdateStats: (val: Record<string, IWordStats>) => void;
@@ -13,7 +13,7 @@ interface IProps<T extends { word: string }> {
   children: (word: T) => React.ReactNode;
 }
 
-function SpeakTestLayout<T extends { word: string }>(props: IProps<T>) {
+function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProps<T>) {
   const {
     nextWord,
     wordStats,
@@ -22,18 +22,20 @@ function SpeakTestLayout<T extends { word: string }>(props: IProps<T>) {
     children,
   } = props;
 
-  const updateWordStat = (word: string, val: Partial<IWordStats>) =>
+  const updateWordStat = (word: string, val: Partial<IWordStats>, mode?: string) => {
+    const key = `${word}${mode && (':' + mode)}`;
     onUpdateStats({
       ...wordStats,
-      [word]: {
-        ...wordStats[word] ?? { repeats: 0, errors: 0 },
+      [key]: {
+        ...wordStats[key] ?? { repeats: 0, errors: 0 },
         ...val,
       }
     });
+  }
 
   const [word, setWord] = React.useState(() => nextWord());
-
-  const { repeats, errors } = wordStats[word.word] ?? { repeats: 0, errors: 0};
+  const key = `${word.word}${word.mode && (':' + word.mode)}`;
+  const { repeats, errors } = wordStats[key] ?? { repeats: 0, errors: 0};
 
   const next = () => {
     const next = nextWord();
@@ -43,9 +45,9 @@ function SpeakTestLayout<T extends { word: string }>(props: IProps<T>) {
 
   const click = (correct: boolean) => {
     if (correct) {
-      updateWordStat(word.word, { repeats: repeats + 1 });
+      updateWordStat(word.word, { repeats: repeats + 1 }, word.mode);
     } else {
-      updateWordStat(word.word, { errors: errors + 1 });
+      updateWordStat(word.word, { errors: errors + 1 }, word.mode);
     }
     next();
   };

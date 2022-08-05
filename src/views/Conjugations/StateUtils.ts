@@ -20,5 +20,14 @@ export const loadState = createStateLoader<IConfig>(
     if (obj.modes && Array.isArray(obj.modes)) {
       state.modes = [...(obj.modes as any[]).map(v => String(v))]
     }
+  },
+  (state, word, repeats, errors) => {
+    if (!word.includes(':')) {
+      word = `${word}:indicativus.activum.praesens`
+    }
+    state[word] = {
+      repeats: repeats ?? 0,
+      errors: errors ?? 0,
+    }
   }
 );
