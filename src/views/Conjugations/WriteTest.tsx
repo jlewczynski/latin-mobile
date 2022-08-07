@@ -2,8 +2,7 @@ import React from 'react';
 import { IViewProps } from '..';
 import ConjugactionWrite, { TConjugationMode } from '../../components/Conjugaction/Write';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
-import { words } from '../../data/Conjugation';
-import { empty, modeLabel, TErrorList, testModes, validate } from '../../models/Conjugation';
+import { empty, modeLabel, TErrorList, validate } from '../../models/Conjugation';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
 import { allModes, IConfig, loadState, useWordList } from './StateUtils';
 
