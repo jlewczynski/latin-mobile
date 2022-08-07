@@ -8,10 +8,10 @@ const MainView: React.FC = () => {
     <MainMenu>
       <MainMenuItem link={'declination'} mode={'write'}>Deklinacja (pisanie)</MainMenuItem>
       <MainMenuItem link={'declination'} mode={'speak'}>Deklinacja (mówienie)</MainMenuItem>
-      <MainMenuItem link={'comparison'}>Stopniowanie</MainMenuItem>
+      <MainMenuItem link={'comparison'} mode={'write'}>Stopniowanie (pisanie)</MainMenuItem>
+      <MainMenuItem link={'comparison'} mode={'speak'}>Stopniowanie (mówienie)</MainMenuItem>
       <MainMenuItem link={'conjugation'} mode={'write'}>Koniugacja (pisanie)</MainMenuItem>
       <MainMenuItem link={'conjugation'} mode={'speak'}>Koniugacja (mówienie)</MainMenuItem>
-      <MainMenuItem>Liczebniki</MainMenuItem>
     </MainMenu>
   </>;
 }

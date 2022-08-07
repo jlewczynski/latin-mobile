@@ -1,0 +1,49 @@
+import React from 'react';
+import { IViewProps } from '..';
+import ComparisonSpeak from '../../components/Comparison/Speak';
+import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
+import { TComparison } from '../../models/Comparison';
+import { IPersistentState } from '../../utils/ViewsPersistentState';
+import { IConfig, loadState, useWordList } from './StateUtils';
+
+interface IProps extends IViewProps {
+}
+
+const Comparisons: React.FC<IProps> = (props) => {
+  const { persistentState, updatePersistentState: updateStats } = props;
+  const state = loadState(persistentState);
+
+  const doUpdate = (newState: Partial<IPersistentState<IConfig>>) => {
+    updateStats(JSON.stringify({
+      ...state,
+      ...newState,
+    }));
+  }
+  const updateConfig = (val: Partial<IConfig>) =>
+    doUpdate({config: { ...state.config, ...val }});
+
+  const [word, nextWord] = useWordList(state.config.random);
+
+  return (
+    <SpeakTestLayout<TComparison>
+      word={word}
+      nextWord={nextWord}
+      wordStats={state.wordStats}
+      onUpdateStats={stats => doUpdate({wordStats: stats})}
+      settings={<>
+        <label>
+          Random
+          <input
+            type='checkbox'
+            checked={state.config.random}
+            onChange={e => updateConfig({ random: e.target.checked })}
+          />
+        </label>
+      </>}
+    >
+      {(word) =>
+        <ComparisonSpeak word={word} />}
+    </SpeakTestLayout>);
+}
+
+export default Comparisons;

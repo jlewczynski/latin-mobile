@@ -1,39 +1,19 @@
 import React from 'react';
 import { IViewProps } from '..';
-import Comparison from '../../components/Comparison';
-import { useGenericWordList } from '../../components/Layout/useWordList';
+import ComparisonWrite from '../../components/Comparison/Write';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
-import { words } from '../../data/Comparison';
 import { empty, TComparison, TErrorList, validate } from '../../models/Comparison';
-import type { IWordStatsSet } from '../../models/WordStats';
+import { IPersistentState } from '../../utils/ViewsPersistentState';
+import { IConfig, loadState, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
 
-interface IConfig {
-  random: boolean;
-}
-
-interface IPersistentState {
-  config: IConfig;
-  wordStats: IWordStatsSet;
-}
-
-const defaultState: IPersistentState = {
-  config: {
-    random: false,
-  },
-  wordStats: {
-  },
-}
-
 const Comparisons: React.FC<IProps> = (props) => {
   const { persistentState, updatePersistentState: updateStats } = props;
-  const state: IPersistentState = persistentState ?
-    JSON.parse(persistentState) :
-    defaultState;
+  const state = loadState(persistentState);
 
-  const doUpdate = (newState: Partial<IPersistentState>) => {
+  const doUpdate = (newState: Partial<IPersistentState<IConfig>>) => {
     updateStats(JSON.stringify({
       ...state,
       ...newState,
@@ -42,9 +22,7 @@ const Comparisons: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const newSet = React.useCallback(() => [...words], []);
-
-  const [word, nextWord] = useGenericWordList<TComparison>(state.config.random, newSet);
+  const [word, nextWord] = useWordList(state.config.random);
 
   return (
     <WriteTestLayout<TComparison, TErrorList>
@@ -66,7 +44,7 @@ const Comparisons: React.FC<IProps> = (props) => {
       </>}
     >
       {(answer, setAnswer, errorList, hint) =>
-        <Comparison word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
+        <ComparisonWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
     </WriteTestLayout>);
 }
 
