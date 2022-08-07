@@ -1,17 +1,17 @@
 import React from 'react';
-import MainMenu from '../../components/MainMenu';
+import MainMenu, { MainMenuItem } from '../../components/MainMenu';
 import styles from './styles.module.css';
 
 const MainView: React.FC = () => {
   return <>
     <h1 className={styles.title}>Lingua Latina</h1>
     <MainMenu>
-      <MainMenu.Item link={'declination'} mode={'write'}>Deklinacja (pisanie)</MainMenu.Item>
-      <MainMenu.Item link={'declination'} mode={'speak'}>Deklinacja (mówienie)</MainMenu.Item>
-      <MainMenu.Item link={'comparison'}>Stopniowanie</MainMenu.Item>
-      <MainMenu.Item link={'conjugation'} mode={'write'}>Koniugacja (pisanie)</MainMenu.Item>
-      <MainMenu.Item link={'conjugation'} mode={'speak'}>Koniugacja (mówienie)</MainMenu.Item>
-      <MainMenu.Item>Liczebniki</MainMenu.Item>
+      <MainMenuItem link={'declination'} mode={'write'}>Deklinacja (pisanie)</MainMenuItem>
+      <MainMenuItem link={'declination'} mode={'speak'}>Deklinacja (mówienie)</MainMenuItem>
+      <MainMenuItem link={'comparison'}>Stopniowanie</MainMenuItem>
+      <MainMenuItem link={'conjugation'} mode={'write'}>Koniugacja (pisanie)</MainMenuItem>
+      <MainMenuItem link={'conjugation'} mode={'speak'}>Koniugacja (mówienie)</MainMenuItem>
+      <MainMenuItem>Liczebniki</MainMenuItem>
     </MainMenu>
   </>;
 }

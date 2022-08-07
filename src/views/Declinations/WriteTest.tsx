@@ -1,7 +1,6 @@
 import React from 'react';
 import DeclinationWrite from '../../components/Declination/Write';
 import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
-import { words } from '../../data/Declination';
 import { IViewProps } from '..';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { capitalize } from '../../utils';
@@ -24,7 +23,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const [word, correct, incorrect] = useWordList(state.config.random, state.config.categories);
+  const [word, nextWord] = useWordList(state.config.random, state.config.categories);
 
   const toggleCategory = (category: string, checked: boolean) => {
     let categories;
@@ -42,7 +41,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
   return (
     <WriteTestLayout<TDeclination, TErrorList>
       word={word}
-      nextWord={c => c ? correct() : incorrect()}
+      nextWord={nextWord}
       empty={empty}
       validate={validate}
       wordStats={state.wordStats}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { IViewProps } from '..';
 import Comparison from '../../components/Comparison';
+import { useGenericWordList } from '../../components/Layout/useWordList';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { words } from '../../data/Comparison';
 import { empty, TComparison, TErrorList, validate } from '../../models/Comparison';
@@ -41,22 +42,13 @@ const Comparisons: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const wordSet = React.useRef<TComparison[]>([]);
+  const newSet = React.useCallback(() => [...words], []);
 
-  const nextWord = (): TComparison => {
-    if (!wordSet.current.length) {
-      wordSet.current = [...words];
-    }
-    if (state.config.random) {
-      const index = Math.floor(Math.random() * wordSet.current.length);
-      return wordSet.current.splice(index, 1)[0];
-    } else {
-      return wordSet.current.shift()!;
-    }
-  };
+  const [word, nextWord] = useGenericWordList<TComparison>(state.config.random, newSet);
 
   return (
     <WriteTestLayout<TComparison, TErrorList>
+      word={word}
       nextWord={nextWord}
       empty={empty}
       validate={validate}

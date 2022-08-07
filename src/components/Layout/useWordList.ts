@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function useGenericWordList<T>(random: boolean, newSet: () => T[]): [T, () => void, () => void] {
+export function useGenericWordList<T>(random: boolean, newSet: () => T[]): [T, (c: boolean) => void, () => void, () => void] {
   const [wordList, setWordList] = React.useState<T[]>(newSet);
 
   React.useEffect(() => {
@@ -30,8 +30,11 @@ export function useGenericWordList<T>(random: boolean, newSet: () => T[]): [T, (
     return [...next(rest), first];
   });
 
+  const nextWord = (isCorrect: boolean) => isCorrect ? correct() : incorrect();
+
   return [
     wordList[0],
+    nextWord,
     correct,
     incorrect,
   ]

@@ -23,7 +23,7 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const [word, correct, incorrect] = useWordList(state.config.random, state.config.categories);
+  const [word, nextWord] = useWordList(state.config.random, state.config.categories);
 
   const toggleCategory = (category: string, checked: boolean) => {
     let categories;
@@ -41,7 +41,7 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
   return (
     <SpeakTestLayout<TDeclination>
       word={word}
-      nextWord={c => c ? correct() : incorrect()}
+      nextWord={nextWord}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
       settings={<>

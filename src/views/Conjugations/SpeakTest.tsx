@@ -23,7 +23,7 @@ const Conjugations: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const [word, correct, incorrect] = useWordList(state.config.random, state.config.modes);
+  const [word, nextWord] = useWordList(state.config.random, state.config.modes);
 
   const toggleMode = (mode: string, checked: boolean) => {
     let modes;
@@ -41,7 +41,7 @@ const Conjugations: React.FC<IProps> = (props) => {
   return (
     <SpeakTestLayout<TConjugationMode>
       word={word}
-      nextWord={(c) => c ? correct() : incorrect() }
+      nextWord={nextWord}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
       settings={<>
