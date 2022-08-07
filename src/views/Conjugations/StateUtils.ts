@@ -36,11 +36,11 @@ export const loadState = createStateLoader<IConfig>(
   }
 );
 
-export const useWordList = (random: boolean, modes: string[]): [TConjugationMode, ()=>void, ()=>void] => {
-  const newSet = React.useCallback((): TConjugationMode[] => words.flatMap(w =>
+export const useWordList = (random: boolean, modes: string[]) => {
+  const newSet = React.useCallback(() => words.flatMap(w =>
     testModes(w)
     .filter(m => modes.includes(m))
-    .map(mode => ({...w, mode}))),
+    .map(mode => ({...w, mode} as TConjugationMode))),
   [modes.join(' ')]);
 
   return useGenericWordList(random, newSet);
