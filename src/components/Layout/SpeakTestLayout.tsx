@@ -6,7 +6,8 @@ import cx from 'classnames';
 import type { IWordStats, IWordStatsSet } from '../../models/WordStats';
 
 interface IProps<T extends { word: string, mode?: string }> {
-  nextWord: () => T;
+  word: T;
+  nextWord: (correct: boolean) => void;
   wordStats: IWordStatsSet;
   onUpdateStats: (val: Record<string, IWordStats>) => void;
   settings?: React.ReactNode;
@@ -15,6 +16,7 @@ interface IProps<T extends { word: string, mode?: string }> {
 
 function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProps<T>) {
   const {
+    word,
     nextWord,
     wordStats,
     onUpdateStats,
@@ -23,7 +25,7 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
   } = props;
 
   const updateWordStat = (word: string, val: Partial<IWordStats>, mode?: string) => {
-    const key = `${word}${mode && (':' + mode)}`;
+    const key = `${word}${mode ? (':' + mode) : ''}`;
     onUpdateStats({
       ...wordStats,
       [key]: {
@@ -33,15 +35,8 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
     });
   }
 
-  const [word, setWord] = React.useState(() => nextWord());
-  const key = `${word.word}${word.mode && (':' + word.mode)}`;
+  const key = `${word.word}${word.mode ? (':' + word.mode) : ''}`;
   const { repeats, errors } = wordStats[key] ?? { repeats: 0, errors: 0};
-
-  const next = () => {
-    const next = nextWord();
-
-    setWord(next);
-  }
 
   const click = (correct: boolean) => {
     if (correct) {
@@ -49,7 +44,7 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
     } else {
       updateWordStat(word.word, { errors: errors + 1 }, word.mode);
     }
-    next();
+    nextWord(correct);
   };
 
   return (
@@ -62,7 +57,7 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
       additionalActions={<>
         <button
           className={cx(styles.actionButton, styles.skip)}
-          onClick={() => next()}
+          onClick={() => nextWord(true)}
         >
           »
         </button>

@@ -3,10 +3,9 @@ import { IViewProps } from '..';
 import ConjugactionSpeak from '../../components/Conjugaction/Speak';
 import type { TConjugationMode } from '../../components/Conjugaction/Write';
 import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
-import { words } from '../../data/Conjugation';
-import { modeLabel, testModes } from '../../models/Conjugation';
+import { modeLabel } from '../../models/Conjugation';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { allModes, IConfig, loadState } from './StateUtils';
+import { allModes, IConfig, loadState, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
@@ -24,29 +23,7 @@ const Conjugations: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const wordSet = React.useRef<TConjugationMode[]>([]);
-
-  React.useEffect(() => {
-    wordSet.current = words.flatMap(w =>
-      testModes(w)
-      .filter(m => state.config.modes.includes(m))
-      .map(mode => ({...w, mode})));
-  }, [state.config.modes.join(' ')]);
-
-  const nextWord = (): TConjugationMode => {
-    if (!wordSet.current.length) {
-      wordSet.current = words.flatMap(w =>
-        testModes(w)
-        .filter(m => state.config.modes.includes(m))
-        .map(mode => ({...w, mode})));
-    }
-    if (state.config.random) {
-      const index = Math.floor(Math.random() * wordSet.current.length);
-      return wordSet.current.splice(index, 1)[0];
-    } else {
-      return wordSet.current.shift()!;
-    }
-  };
+  const [word, correct, incorrect] = useWordList(state.config.random, state.config.modes);
 
   const toggleMode = (mode: string, checked: boolean) => {
     let modes;
@@ -63,7 +40,8 @@ const Conjugations: React.FC<IProps> = (props) => {
 
   return (
     <SpeakTestLayout<TConjugationMode>
-      nextWord={nextWord}
+      word={word}
+      nextWord={(c) => c ? correct() : incorrect() }
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
       settings={<>

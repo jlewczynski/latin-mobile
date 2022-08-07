@@ -6,7 +6,8 @@ import cx from 'classnames';
 import type { IWordStats, IWordStatsSet } from '../../models/WordStats';
 
 interface IProps<T extends { word: string, mode?: string }, U> {
-  nextWord: () => T;
+  word: T;
+  nextWord: (correct: boolean) => void;
   empty: (template?: T) => T;
   validate: (template: T, answer: T) => U | null;
   wordStats: IWordStatsSet;
@@ -17,6 +18,7 @@ interface IProps<T extends { word: string, mode?: string }, U> {
 
 function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IProps<T, U>) {
   const {
+    word: template,
     nextWord,
     empty,
     validate,
@@ -37,25 +39,23 @@ function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IP
     });
   }
 
-  const [template, setTemplate] = React.useState(() => nextWord());
   const [answer, setAnswer] = React.useState(() => empty(template));
+  React.useEffect(() => setAnswer(empty(template)), [template.word, template.mode]);
   const [errorList, setErrorList] = React.useState<U>();
   const [showHint, setShowHint] = React.useState(false);
 
   const key = `${template.word}${template.mode && ':' + template.mode}`;
   const { repeats, errors } = wordStats[key] ?? { repeats: 0, errors: 0};
 
-  const next = () => {
-    const next = nextWord();
-
-    setTemplate(next);
-    setAnswer(empty(next));
+  const next = (correct: boolean) => {
+    setAnswer(empty(template));
     setErrorList(undefined);
+    nextWord(correct);
   }
 
   const check = () => {
     if (errorList) {
-      next();
+      next(false);
     } else {
       const result = validate(template, answer);
       if (result) {
@@ -63,7 +63,7 @@ function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IP
         setErrorList(result);
       } else {
         updateWordStat(template.word, { repeats: repeats + 1 }, template.mode);
-        next();
+        next(true);
       }
     }
   }
@@ -83,7 +83,7 @@ function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IP
         </button>
         <button
           className={cx(styles.actionButton, styles.skip)}
-          onClick={() => next()}
+          onClick={() => next(true)}
         >
           »
         </button>

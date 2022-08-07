@@ -1,4 +1,7 @@
+import React from 'react';
+import { useGenericWordList } from '../../components/Layout/useWordList';
 import { words } from "../../data/Declination";
+import { TDeclination } from '../../models/Declination';
 import { createStateLoader } from "../../utils/ViewsPersistentState";
 
 export interface IConfig {
@@ -22,3 +25,11 @@ export const loadState = createStateLoader<IConfig>(
     }
   }
 );
+
+export const useWordList = (random: boolean, categories: string[]) => {
+  const newSet = React.useCallback(() =>
+    words.filter(w => categories.includes(w.category)),
+  [categories.join(',')]);
+
+  return useGenericWordList<TDeclination>(random, newSet);
+}

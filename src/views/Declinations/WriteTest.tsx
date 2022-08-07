@@ -5,7 +5,7 @@ import { words } from '../../data/Declination';
 import { IViewProps } from '..';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { capitalize } from '../../utils';
-import { allCategories, IConfig, loadState } from './StateUtils';
+import { allCategories, IConfig, loadState, useWordList } from './StateUtils';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
 
 interface IProps extends IViewProps {
@@ -24,23 +24,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const wordSet = React.useRef<TDeclination[]>([]);
-
-  React.useEffect(() => {
-    wordSet.current = wordSet.current.filter(w => state.config.categories.includes(w.category));
-  }, [state.config.categories.join(' ')]);
-
-  const nextWord = (): TDeclination => {
-    if (!wordSet.current.length) {
-      wordSet.current = [...words.filter(w => state.config.categories.includes(w.category))];
-    }
-    if (state.config.random) {
-      const index = Math.floor(Math.random() * wordSet.current.length);
-      return wordSet.current.splice(index, 1)[0];
-    } else {
-      return wordSet.current.shift()!;
-    }
-  };
+  const [word, correct, incorrect] = useWordList(state.config.random, state.config.categories);
 
   const toggleCategory = (category: string, checked: boolean) => {
     let categories;
@@ -57,7 +41,8 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
 
   return (
     <WriteTestLayout<TDeclination, TErrorList>
-      nextWord={nextWord}
+      word={word}
+      nextWord={c => c ? correct() : incorrect()}
       empty={empty}
       validate={validate}
       wordStats={state.wordStats}

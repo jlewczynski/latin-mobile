@@ -1,3 +1,7 @@
+import React from 'react';
+import { TConjugationMode } from '../../components/Conjugaction/Write';
+import { useGenericWordList } from '../../components/Layout/useWordList';
+import { words } from '../../data/Conjugation';
 import { testModes } from "../../models/Conjugation";
 import { createStateLoader } from "../../utils/ViewsPersistentState";
 
@@ -31,3 +35,13 @@ export const loadState = createStateLoader<IConfig>(
     }
   }
 );
+
+export const useWordList = (random: boolean, modes: string[]): [TConjugationMode, ()=>void, ()=>void] => {
+  const newSet = React.useCallback((): TConjugationMode[] => words.flatMap(w =>
+    testModes(w)
+    .filter(m => modes.includes(m))
+    .map(mode => ({...w, mode}))),
+  [modes.join(' ')]);
+
+  return useGenericWordList(random, newSet);
+}
