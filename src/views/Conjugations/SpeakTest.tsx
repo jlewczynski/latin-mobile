@@ -4,8 +4,7 @@ import ConjugactionSpeak from '../../components/Conjugaction/Speak';
 import type { TConjugationMode } from '../../components/Conjugaction/Write';
 import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { useSettings } from '../Comparisons/StateUtils';
-import { IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
