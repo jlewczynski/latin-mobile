@@ -4,15 +4,31 @@
   padding: 10px 10%;
 }
 
-.button {
-  display: inline-block;
-  height: 32px;
-  flex: 0 0;
+.item {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
+}
+.label {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.modes {
+  display: flex;
+  flex-direction: row;
+}
+.button {
+  flex: 1 1 1px;
+
+  display: inline-block;
+  height: 42px;
   background-color: #050;
   color: white;
   border-radius: 5px;
   padding: 5px 10px;
+  margin: 0 5px;
   line-height: 32px;
   text-align: center;
+  text-decoration: none;
 }

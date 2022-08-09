@@ -6,12 +6,9 @@ const MainView: React.FC = () => {
   return <>
     <h1 className={styles.title}>Lingua Latina</h1>
     <MainMenu>
-      <MainMenuItem link={'declination'} mode={'write'}>Deklinacja (pisanie)</MainMenuItem>
-      <MainMenuItem link={'declination'} mode={'speak'}>Deklinacja (mówienie)</MainMenuItem>
-      <MainMenuItem link={'comparison'} mode={'write'}>Stopniowanie (pisanie)</MainMenuItem>
-      <MainMenuItem link={'comparison'} mode={'speak'}>Stopniowanie (mówienie)</MainMenuItem>
-      <MainMenuItem link={'conjugation'} mode={'write'}>Koniugacja (pisanie)</MainMenuItem>
-      <MainMenuItem link={'conjugation'} mode={'speak'}>Koniugacja (mówienie)</MainMenuItem>
+      <MainMenuItem link={'declination'} write speak>Deklinacja</MainMenuItem>
+      <MainMenuItem link={'comparison'} write speak>Stopniowanie</MainMenuItem>
+      <MainMenuItem link={'conjugation'} write speak>Koniugacja</MainMenuItem>
     </MainMenu>
   </>;
 }
