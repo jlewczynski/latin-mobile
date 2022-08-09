@@ -4,7 +4,7 @@ import ComparisonWrite from '../../components/Comparison/Write';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
 import { empty, TComparison, TErrorList, validate } from '../../models/Comparison';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
@@ -23,6 +23,7 @@ const Comparisons: React.FC<IProps> = (props) => {
     doUpdate({config: { ...state.config, ...val }});
 
   const [word, nextWord] = useWordList(state.config.random);
+  const settings = useSettings(state.config, updateConfig);
 
   return (
     <WriteTestLayout<TComparison, TErrorList>
@@ -32,16 +33,7 @@ const Comparisons: React.FC<IProps> = (props) => {
       validate={validate}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-      </>}
+      settings={settings}
     >
       {(answer, setAnswer, errorList, hint) =>
         <ComparisonWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}

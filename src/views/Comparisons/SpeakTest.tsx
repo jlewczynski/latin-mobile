@@ -4,7 +4,7 @@ import ComparisonSpeak from '../../components/Comparison/Speak';
 import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
 import { TComparison } from '../../models/Comparison';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
@@ -24,22 +24,15 @@ const Comparisons: React.FC<IProps> = (props) => {
 
   const [word, nextWord] = useWordList(state.config.random);
 
+  const settings = useSettings(state.config, updateConfig);
+
   return (
     <SpeakTestLayout<TComparison>
       word={word}
       nextWord={nextWord}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-      </>}
+      settings={settings}
     >
       {(word) =>
         <ComparisonSpeak word={word} />}

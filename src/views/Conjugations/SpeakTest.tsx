@@ -3,9 +3,9 @@ import { IViewProps } from '..';
 import ConjugactionSpeak from '../../components/Conjugaction/Speak';
 import type { TConjugationMode } from '../../components/Conjugaction/Write';
 import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
-import { modeLabel } from '../../models/Conjugation';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { allModes, IConfig, loadState, useWordList } from './StateUtils';
+import { useSettings } from '../Comparisons/StateUtils';
+import { IConfig, loadState, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
@@ -24,19 +24,7 @@ const Conjugations: React.FC<IProps> = (props) => {
     doUpdate({config: { ...state.config, ...val }});
 
   const [word, nextWord] = useWordList(state.config.random, state.config.modes);
-
-  const toggleMode = (mode: string, checked: boolean) => {
-    let modes;
-    if (checked) {
-      modes = [
-        ...state.config.modes,
-        mode,
-      ];
-    } else {
-      modes = state.config.modes.filter(m => m !== mode);
-    }
-    updateConfig({ modes });
-  }
+  const settings = useSettings(state.config, updateConfig);
 
   return (
     <SpeakTestLayout<TConjugationMode>
@@ -44,28 +32,7 @@ const Conjugations: React.FC<IProps> = (props) => {
       nextWord={nextWord}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-        <div>
-          <div>Tenses</div>
-          {allModes.map(mode => <div key={mode}>
-            <input
-              type={'checkbox'}
-              key={mode}
-              checked={state.config.modes.includes(mode)}
-              onChange={e => toggleMode(mode, e.target.checked)}
-            />
-            <span>{modeLabel(mode)}</span>
-          </div>)}
-        </div>
-      </>}
+      settings={settings}
     >
       {(word) =>
         <ConjugactionSpeak word={word} />}

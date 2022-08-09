@@ -3,8 +3,7 @@ import DeclinationWrite from '../../components/Declination/Write';
 import { empty, TDeclination, TErrorList, validate } from '../../models/Declination';
 import { IViewProps } from '..';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
-import { capitalize } from '../../utils';
-import { allCategories, IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
 
 interface IProps extends IViewProps {
@@ -24,19 +23,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
     doUpdate({config: { ...state.config, ...val }});
 
   const [word, nextWord] = useWordList(state.config.random, state.config.categories);
-
-  const toggleCategory = (category: string, checked: boolean) => {
-    let categories;
-    if (checked) {
-      categories = [
-        ...state.config.categories,
-        category,
-      ];
-    } else {
-      categories = state.config.categories.filter(c => c !== category);
-    }
-    updateConfig({ categories });
-  }
+  const settings = useSettings(state.config, updateConfig);
 
   return (
     <WriteTestLayout<TDeclination, TErrorList>
@@ -46,28 +33,7 @@ const DeclinationsWrite: React.FC<IProps> = (props) => {
       validate={validate}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-        <div>
-          <div>Categories</div>
-          {allCategories.map(category => <div>
-            <input
-              type={'checkbox'}
-              key={category}
-              checked={state.config.categories.includes(category)}
-              onChange={e => toggleCategory(category, e.target.checked)}
-            />
-            <span>{capitalize(category)}</span>
-          </div>)}
-        </div>
-      </>}
+      settings={settings}
     >
       {(answer, setAnswer, errorList, hint) =>
         <DeclinationWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}

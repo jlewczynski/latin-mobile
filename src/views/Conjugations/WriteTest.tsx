@@ -2,9 +2,9 @@ import React from 'react';
 import { IViewProps } from '..';
 import ConjugactionWrite, { TConjugationMode } from '../../components/Conjugaction/Write';
 import WriteTestLayout from '../../components/Layout/WriteTestLayout';
-import { empty, modeLabel, TErrorList, validate } from '../../models/Conjugation';
+import { empty, TErrorList, validate } from '../../models/Conjugation';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
-import { allModes, IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 
 interface IProps extends IViewProps {
 }
@@ -23,19 +23,7 @@ const Conjugations: React.FC<IProps> = (props) => {
     doUpdate({config: { ...state.config, ...val }});
 
   const [word, nextWord] = useWordList(state.config.random, state.config.modes);
-
-  const toggleMode = (mode: string, checked: boolean) => {
-    let modes;
-    if (checked) {
-      modes = [
-        ...state.config.modes,
-        mode,
-      ];
-    } else {
-      modes = state.config.modes.filter(m => m !== mode);
-    }
-    updateConfig({ modes });
-  }
+  const settings = useSettings(state.config, updateConfig);
 
   return (
     <WriteTestLayout<TConjugationMode, TErrorList>
@@ -45,28 +33,7 @@ const Conjugations: React.FC<IProps> = (props) => {
       validate={(t, a) => validate(t, a, a.mode)}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-        <div>
-          <div>Tenses</div>
-          {allModes.map(mode => <div key={mode}>
-            <input
-              type={'checkbox'}
-              key={mode}
-              checked={state.config.modes.includes(mode)}
-              onChange={e => toggleMode(mode, e.target.checked)}
-            />
-            <span>{modeLabel(mode)}</span>
-          </div>)}
-        </div>
-      </>}
+      settings={settings}
     >
       {(answer, setAnswer, errorList, hint) =>
         <ConjugactionWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}

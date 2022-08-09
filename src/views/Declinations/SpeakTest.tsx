@@ -2,8 +2,7 @@ import React from 'react';
 import DeclinationSpeak from '../../components/Declination/Speak';
 import { TDeclination } from '../../models/Declination';
 import { IViewProps } from '..';
-import { capitalize } from '../../utils';
-import { allCategories, IConfig, loadState, useWordList } from './StateUtils';
+import { IConfig, loadState, useSettings, useWordList } from './StateUtils';
 import { IPersistentState } from '../../utils/ViewsPersistentState';
 import SpeakTestLayout from '../../components/Layout/SpeakTestLayout';
 
@@ -24,19 +23,7 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
     doUpdate({config: { ...state.config, ...val }});
 
   const [word, nextWord] = useWordList(state.config.random, state.config.categories);
-
-  const toggleCategory = (category: string, checked: boolean) => {
-    let categories;
-    if (checked) {
-      categories = [
-        ...state.config.categories,
-        category,
-      ];
-    } else {
-      categories = state.config.categories.filter(c => c !== category);
-    }
-    updateConfig({ categories });
-  }
+  const settings = useSettings(state.config, updateConfig);
 
   return (
     <SpeakTestLayout<TDeclination>
@@ -44,28 +31,7 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
       nextWord={nextWord}
       wordStats={state.wordStats}
       onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={<>
-        <label>
-          Random
-          <input
-            type='checkbox'
-            checked={state.config.random}
-            onChange={e => updateConfig({ random: e.target.checked })}
-          />
-        </label>
-        <div>
-          <div>Categories</div>
-          {allCategories.map(category => <div>
-            <input
-              type={'checkbox'}
-              key={category}
-              checked={state.config.categories.includes(category)}
-              onChange={e => toggleCategory(category, e.target.checked)}
-            />
-            <span>{capitalize(category)}</span>
-          </div>)}
-        </div>
-      </>}
+      settings={settings}
     >
       {(word) =>
         <DeclinationSpeak word={word} />}
