@@ -23,7 +23,7 @@ interface IProps {
 
 const TestInputs = (props: IProps) => {
   const { inputRefs, children } = props;
-  return <div className={styles.declination}>
+  return <div className={styles.declination} style={{ gridTemplateRows: `repeat(${children.length}, var(--row-height))` }}>
     {children.map(item => {
       const { index, ...props} = item;
       return <Item

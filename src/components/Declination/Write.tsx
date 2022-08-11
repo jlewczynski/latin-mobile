@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import { cases, numbers, TCaseName, TDeclination, TDeclinationNumber, TErrorList } from '../../models/Declination';
 import { capitalize } from '../../utils';
 import TestInputs from '../TestInput';
+import Section from '../Layout/Section';
 
 interface IProps {
   word: TDeclination;
@@ -24,8 +25,7 @@ const Declination: React.FC<IProps> = (props) => {
 
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
-    {numbers.map((n, ni) => <div key={n}>
-      <h3>{capitalize(n)}</h3>
+    {numbers.map((n, ni) => <Section header={n} key={n}>
       <TestInputs
         inputRefs={inputRefs}
       >
@@ -39,7 +39,7 @@ const Declination: React.FC<IProps> = (props) => {
             onChange: v => updateAnswer(n, c, v),
         }))}
       </TestInputs>
-    </div>)}
+    </Section>)}
   </div>
 }
 

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { getModeLabels, getTestModeData, modeLabel, setTestModeData, TConjugation, TErrorList } from '../../models/Conjugation';
 import { capitalize } from '../../utils';
+import Section from '../Layout/Section';
 import TestInputs from '../TestInput';
 import styles from './styles.module.css';
 
@@ -43,8 +44,7 @@ const ConjugactionWrite: React.FC<IProps> = (props) => {
   return <div className={styles.container}>
     <h2 className={styles.word}>{word.word}</h2>
     <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
-    {labels.map(({section, labels, startIndex}) => <Fragment key={section}>
-      <h3>{capitalize(section)}</h3>
+    {labels.map(({section, labels, startIndex}) => <Section header={section} key={section}>
       <TestInputs inputRefs={inputRefs}>
         {labels.map((label, i) => ({
             index: startIndex + i + 1,
@@ -56,7 +56,7 @@ const ConjugactionWrite: React.FC<IProps> = (props) => {
             onChange: v => updateAnswer(startIndex + i, v),
         }))}
       </TestInputs>
-    </Fragment>)}
+    </Section>)}
   </div>
 }
 
