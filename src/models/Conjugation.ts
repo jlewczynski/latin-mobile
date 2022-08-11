@@ -126,8 +126,8 @@ export function empty(template?: TConjugation): TConjugation {
 }
 
 export const testModes = (template?: TConjugation) => {
-  const passive = Boolean(template?.indicativus.passivum ?? true);
-  const imperative = Boolean(template?.imperativus ?? true);
+  const passive = template ? Boolean(template.indicativus.passivum) : true;
+  const imperative = template ? Boolean(template.imperativus) : true;
   const result = moods.flatMap(m => tenses[m].flatMap(t => `${m}.activum.${t}`))
   if (passive) {
     result.push(
