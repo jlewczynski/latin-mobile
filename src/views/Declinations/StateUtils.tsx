@@ -27,9 +27,10 @@ export const loadState = createStateLoader<IConfig>(
   }
 );
 
-export const useWordList = (random: boolean, categories: string[]) => {
+export const useWordList = (config: IConfig) => {
+  const { random, categories } = config;
   const newSet = React.useCallback(() =>
-    words.filter(w => categories.includes(w.category)),
+    words.filter(w => categories.includes(w.category) || !categories.length),
   [categories.join(',')]);
 
   return useGenericWordList<TDeclination>(random, newSet);

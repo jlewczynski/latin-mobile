@@ -22,7 +22,7 @@ const Comparisons: React.FC<IProps> = (props) => {
   const updateConfig = (val: Partial<IConfig>) =>
     doUpdate({config: { ...state.config, ...val }});
 
-  const [word, nextWord] = useWordList(state.config.random);
+  const [word, nextWord] = useWordList(state.config);
 
   const settings = useSettings(state.config, updateConfig);
 

@@ -18,7 +18,8 @@ export const loadState = createStateLoader<IConfig>(
   },
 );
 
-export const useWordList = (random: boolean) => {
+export const useWordList = (config: IConfig) => {
+  const { random } = config;
   const newSet = React.useCallback(() => [...words], []);
 
   return useGenericWordList(random, newSet);

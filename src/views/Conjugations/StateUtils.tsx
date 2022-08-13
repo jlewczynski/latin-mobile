@@ -36,10 +36,11 @@ export const loadState = createStateLoader<IConfig>(
   }
 );
 
-export const useWordList = (random: boolean, modes: string[]) => {
+export const useWordList = (config: IConfig) => {
+  const {random, modes} = config;
   const newSet = React.useCallback(() => words.flatMap(w =>
     testModes(w)
-    .filter(m => modes.includes(m))
+    .filter(m => modes.includes(m) || !modes.length)
     .map(mode => ({...w, mode} as TConjugationMode))),
   [modes.join(' ')]);
 
