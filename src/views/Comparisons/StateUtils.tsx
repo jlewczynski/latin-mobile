@@ -19,6 +19,15 @@ export const loadState = createStateLoader<IConfig>(
       state.modes = [...(obj.modes as any[]).map(v => String(v))]
     }
   },
+  (state, word, repeats, errors) => {
+    if (!word.includes(':')) {
+      word = `${word}:${words.find(v => v.word === word)?.mode ?? ''}`
+    }
+    state[word] = {
+      repeats: repeats ?? 0,
+      errors: errors ?? 0,
+    }
+  }
 );
 
 export const allModes = Array.from(new Set(words.map(w => w.mode)).values());
