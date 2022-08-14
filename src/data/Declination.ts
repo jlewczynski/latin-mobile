@@ -8,9 +8,9 @@ const num = (cases: string[]): TDeclinationNumberSet => ({
   ablativus: cases[4] ?? cases[2] ?? '',
   vocativus: cases[5] ?? cases[0] ?? '',
 });
-const w = (word: string, category: string, sg: string[], pl: string[]): TDeclination => ({
+const w = (word: string, mode: string, sg: string[], pl: string[]): TDeclination => ({
   word,
-  category,
+  mode,
   singularis: num(sg),
   pluralis: num(pl),
 });

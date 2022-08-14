@@ -19,13 +19,13 @@ export type TDeclinationNumberSet = Record<TCaseName, string>;
 
 export type TDeclination = {
   word: string;
-  category: string;
+  mode: string;
 } & Record<TDeclinationNumber, TDeclinationNumberSet>;
 
 export function empty(template?: TDeclination): TDeclination {
   return {
     word: template?.word ?? '',
-    category: template?.category ?? '',
+    mode: template?.mode ?? '',
     singularis: {
       nominativus: '',
       genetivus: '',

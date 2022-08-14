@@ -7,30 +7,30 @@ import { createStateLoader } from "../../utils/ViewsPersistentState";
 
 export interface IConfig {
   random: boolean;
-  categories: string[];
+  modes: string[];
 }
 
-export const allCategories = Array.from(new Set(words.map(w => w.category)).values());
+export const allModes = Array.from(new Set(words.map(w => w.mode)).values());
 
 export const loadState = createStateLoader<IConfig>(
   {
     random: false,
-    categories: [...allCategories],
+    modes: [...allModes],
   },
   (obj, state) => {
     if ('random' in obj) {
       state.random = Boolean(obj.random);
     }
     if (obj.categories && Array.isArray(obj.categories)) {
-      state.categories = [...(obj.categories as any[]).map(v => String(v))]
+      state.modes = [...(obj.categories as any[]).map(v => String(v))]
     }
   }
 );
 
 export const useWordList = (config: IConfig) => {
-  const { random, categories } = config;
+  const { random, modes: categories } = config;
   const newSet = React.useCallback(() =>
-    words.filter(w => categories.includes(w.category) || !categories.length),
+    words.filter(w => categories.includes(w.mode) || !categories.length),
   [categories.join(',')]);
 
   return useGenericWordList<TDeclination>(random, newSet);
@@ -38,17 +38,17 @@ export const useWordList = (config: IConfig) => {
 
 export const useSettings = (config: IConfig, onUpdate: (diff: Partial<IConfig>) => void) => {
 
-  const toggleCategory = (category: string, checked: boolean) => {
+  const toggleMode = (category: string, checked: boolean) => {
     let categories;
     if (checked) {
       categories = [
-        ...config.categories,
+        ...config.modes,
         category,
       ];
     } else {
-      categories = config.categories.filter(c => c !== category);
+      categories = config.modes.filter(c => c !== category);
     }
-    onUpdate({ categories });
+    onUpdate({ modes: categories });
   }
 
   const component = <>
@@ -62,12 +62,12 @@ export const useSettings = (config: IConfig, onUpdate: (diff: Partial<IConfig>) 
     </label>
     <div>
       <div>Categories</div>
-      {allCategories.map(category => <div>
+      {allModes.map(category => <div>
         <input
           type={'checkbox'}
           key={category}
-          checked={config.categories.includes(category)}
-          onChange={e => toggleCategory(category, e.target.checked)}
+          checked={config.modes.includes(category)}
+          onChange={e => toggleMode(category, e.target.checked)}
         />
         <span>{capitalize(category)}</span>
       </div>)}
