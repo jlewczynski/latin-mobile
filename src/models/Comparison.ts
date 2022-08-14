@@ -8,11 +8,13 @@ export type TGradeName = typeof grades[number];
 
 export type TComparison = {
   word: string;
+  mode: string;
 } & Record<TGradeName, string>;
 
 export function empty(template?: TComparison): TComparison {
   return {
     word: template?.word ?? '',
+    mode: template?.mode ?? '',
     regular: '',
     comparative: '',
     superlative: '',
