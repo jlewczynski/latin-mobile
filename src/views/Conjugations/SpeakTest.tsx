@@ -25,17 +25,14 @@ const Conjugations: React.FC<IProps> = (props) => {
   const [word, nextWord] = useWordList(state.config);
   const settings = useSettings(state.config, updateConfig);
 
-  return (
-    <SpeakTestLayout<TConjugationMode>
-      word={word}
-      nextWord={nextWord}
-      wordStats={state.wordStats}
-      onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={settings}
-    >
-      {(word) =>
-        <ConjugactionSpeak word={word} />}
-    </SpeakTestLayout>);
+  return <SpeakTestLayout<TConjugationMode>
+    word={word}
+    nextWord={nextWord}
+    wordStats={state.wordStats}
+    onUpdateStats={stats => doUpdate({wordStats: stats})}
+    settings={settings}
+    component={ConjugactionSpeak}
+  />;
 }
 
 export default Conjugations;

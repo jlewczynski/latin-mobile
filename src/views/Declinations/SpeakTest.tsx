@@ -25,17 +25,14 @@ const DeclinationsSpeak: React.FC<IProps> = (props) => {
   const [word, nextWord] = useWordList(state.config);
   const settings = useSettings(state.config, updateConfig);
 
-  return (
-    <SpeakTestLayout<TDeclination>
-      word={word}
-      nextWord={nextWord}
-      wordStats={state.wordStats}
-      onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={settings}
-    >
-      {(word) =>
-        <DeclinationSpeak word={word} />}
-    </SpeakTestLayout>);
+  return <SpeakTestLayout<TDeclination>
+    word={word}
+    nextWord={nextWord}
+    wordStats={state.wordStats}
+    onUpdateStats={stats => doUpdate({wordStats: stats})}
+    settings={settings}
+    component={DeclinationSpeak}
+  />;
 }
 
 export default DeclinationsSpeak;

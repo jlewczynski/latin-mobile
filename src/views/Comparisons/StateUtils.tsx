@@ -2,10 +2,9 @@ import React from 'react';
 import { useGenericWordList } from '../../components/Layout/useWordList';
 import { words } from '../../data/Comparison';
 import { createStateLoader } from "../../utils/ViewsPersistentState";
+import { IRandomConfig, useRandom } from '../hooks/useSettings';
 
-export interface IConfig {
-  random: boolean;
-}
+export interface IConfig extends IRandomConfig {}
 
 export const loadState = createStateLoader<IConfig>(
   {
@@ -26,16 +25,8 @@ export const useWordList = (config: IConfig) => {
 }
 
 export const useSettings = (config: IConfig, onUpdate: (diff: Partial<IConfig>) => void) => {
-  const component = <>
-    <label>
-      Random
-      <input
-        type='checkbox'
-        checked={config.random}
-        onChange={e => onUpdate({ random: e.target.checked })}
-      />
-    </label>
-  </>;
-
-  return component;
+  const random = useRandom(config, onUpdate, {});
+  return [
+    random,
+  ];
 }

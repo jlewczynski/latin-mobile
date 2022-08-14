@@ -4,11 +4,9 @@ import { words } from "../../data/Declination";
 import { TDeclination } from '../../models/Declination';
 import { capitalize } from '../../utils';
 import { createStateLoader } from "../../utils/ViewsPersistentState";
+import { IModesConfig, IRandomConfig, useModes, useRandom } from '../hooks/useSettings';
 
-export interface IConfig {
-  random: boolean;
-  modes: string[];
-}
+export interface IConfig extends IRandomConfig, IModesConfig {}
 
 export const allModes = Array.from(new Set(words.map(w => w.mode)).values());
 
@@ -38,41 +36,10 @@ export const useWordList = (config: IConfig) => {
 
 export const useSettings = (config: IConfig, onUpdate: (diff: Partial<IConfig>) => void) => {
 
-  const toggleMode = (category: string, checked: boolean) => {
-    let categories;
-    if (checked) {
-      categories = [
-        ...config.modes,
-        category,
-      ];
-    } else {
-      categories = config.modes.filter(c => c !== category);
-    }
-    onUpdate({ modes: categories });
-  }
-
-  const component = <>
-    <label>
-      Random
-      <input
-        type='checkbox'
-        checked={config.random}
-        onChange={e => onUpdate({ random: e.target.checked })}
-      />
-    </label>
-    <div>
-      <div>Categories</div>
-      {allModes.map(category => <div>
-        <input
-          type={'checkbox'}
-          key={category}
-          checked={config.modes.includes(category)}
-          onChange={e => toggleMode(category, e.target.checked)}
-        />
-        <span>{capitalize(category)}</span>
-      </div>)}
-    </div>
-  </>;
-
-  return component;
+  const random = useRandom(config, onUpdate, {});
+  const modes = useModes(config, onUpdate, allModes);
+  return [
+    random,
+    modes,
+  ];
 }

@@ -11,7 +11,7 @@ interface IProps<T extends { word: string, mode?: string }> {
   wordStats: IWordStatsSet;
   onUpdateStats: (val: Record<string, IWordStats>) => void;
   settings?: React.ReactNode;
-  children: (word: T) => React.ReactNode;
+  component: React.ComponentType<{word: T}>;
 }
 
 function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProps<T>) {
@@ -21,7 +21,7 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
     wordStats,
     onUpdateStats,
     settings,
-    children,
+    component: Component,
   } = props;
 
   const updateWordStat = (word: string, val: Partial<IWordStats>, mode?: string) => {
@@ -64,7 +64,7 @@ function SpeakTestLayout<T extends { word: string, mode?: string }>(props: IProp
       </>}
     >
       <Stats repeats={repeats} errors={errors} />
-      {children(word)}
+      <Component word={word} />
     </BasicLayout>);
 }
 

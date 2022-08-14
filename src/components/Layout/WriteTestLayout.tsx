@@ -13,7 +13,7 @@ interface IProps<T extends { word: string, mode?: string }, U> {
   wordStats: IWordStatsSet;
   onUpdateStats: (val: Record<string, IWordStats>) => void;
   settings?: React.ReactNode;
-  children: (answer: T, onChange: (v: T) => void, errors?: U, hint?: T) => React.ReactNode;
+  component: React.ComponentType<{word: T, onChange: (v: T) => void, errors?: U, hint?: T}>;
 }
 
 function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IProps<T, U>) {
@@ -25,7 +25,7 @@ function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IP
     wordStats,
     onUpdateStats,
     settings,
-    children,
+    component: Component,
   } = props;
 
   const updateWordStat = (word: string, val: Partial<IWordStats>, mode?: string) => {
@@ -90,7 +90,7 @@ function WriteTestLayout<T extends { word: string, mode?: string }, U>(props: IP
       </>}
     >
       <Stats repeats={repeats} errors={errors} />
-      {children(answer, setAnswer, errorList, showHint ? template : undefined)}
+      <Component word={answer} onChange={setAnswer} errors={errorList} hint={showHint ? template : undefined} />
     </BasicLayout>);
 }
 

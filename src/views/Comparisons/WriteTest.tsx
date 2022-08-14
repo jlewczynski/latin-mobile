@@ -25,19 +25,16 @@ const Comparisons: React.FC<IProps> = (props) => {
   const [word, nextWord] = useWordList(state.config);
   const settings = useSettings(state.config, updateConfig);
 
-  return (
-    <WriteTestLayout<TComparison, TErrorList>
-      word={word}
-      nextWord={nextWord}
-      empty={empty}
-      validate={validate}
-      wordStats={state.wordStats}
-      onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={settings}
-    >
-      {(answer, setAnswer, errorList, hint) =>
-        <ComparisonWrite word={answer} onChange={setAnswer} errors={errorList} hint={hint} />}
-    </WriteTestLayout>);
+  return <WriteTestLayout<TComparison, TErrorList>
+    word={word}
+    nextWord={nextWord}
+    empty={empty}
+    validate={validate}
+    wordStats={state.wordStats}
+    onUpdateStats={stats => doUpdate({wordStats: stats})}
+    settings={settings}
+    component={ComparisonWrite}
+  />;
 }
 
 export default Comparisons;

@@ -4,11 +4,9 @@ import { useGenericWordList } from '../../components/Layout/useWordList';
 import { words } from '../../data/Conjugation';
 import { modeLabel, testModes } from "../../models/Conjugation";
 import { createStateLoader } from "../../utils/ViewsPersistentState";
+import { IModesConfig, IRandomConfig, useModes, useRandom } from '../hooks/useSettings';
 
-export interface IConfig {
-  random: boolean;
-  modes: string[];
-}
+export interface IConfig extends IRandomConfig, IModesConfig {}
 
 export const allModes = testModes();
 
@@ -48,41 +46,10 @@ export const useWordList = (config: IConfig) => {
 }
 
 export const useSettings = (config: IConfig, onUpdate: (diff: Partial<IConfig>) => void) => {
-  const toggleMode = (mode: string, checked: boolean) => {
-    let modes;
-    if (checked) {
-      modes = [
-        ...config.modes,
-        mode,
-      ];
-    } else {
-      modes = config.modes.filter(m => m !== mode);
-    }
-    onUpdate({ modes });
-  }
-
-  const component = <>
-    <label>
-      Random
-      <input
-        type='checkbox'
-        checked={config.random}
-        onChange={e => onUpdate({ random: e.target.checked })}
-      />
-    </label>
-    <div>
-      <div>Tenses</div>
-      {allModes.map(mode => <div key={mode}>
-        <input
-          type={'checkbox'}
-          key={mode}
-          checked={config.modes.includes(mode)}
-          onChange={e => toggleMode(mode, e.target.checked)}
-        />
-        <span>{modeLabel(mode)}</span>
-      </div>)}
-    </div>
-  </>;
-
-  return component;
+  const random = useRandom(config, onUpdate, {});
+  const modes = useModes(config, onUpdate, allModes);
+  return [
+    random,
+    modes,
+  ];
 }

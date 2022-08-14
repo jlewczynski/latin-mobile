@@ -26,17 +26,14 @@ const Comparisons: React.FC<IProps> = (props) => {
 
   const settings = useSettings(state.config, updateConfig);
 
-  return (
-    <SpeakTestLayout<TComparison>
-      word={word}
-      nextWord={nextWord}
-      wordStats={state.wordStats}
-      onUpdateStats={stats => doUpdate({wordStats: stats})}
-      settings={settings}
-    >
-      {(word) =>
-        <ComparisonSpeak word={word} />}
-    </SpeakTestLayout>);
+  return <SpeakTestLayout<TComparison>
+    word={word}
+    nextWord={nextWord}
+    wordStats={state.wordStats}
+    onUpdateStats={stats => doUpdate({wordStats: stats})}
+    settings={settings}
+    component={ComparisonSpeak}
+  />;
 }
 
 export default Comparisons;
