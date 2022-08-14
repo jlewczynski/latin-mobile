@@ -22,17 +22,17 @@ export interface IModesConfig {
 }
 export const useModes: ISettingHook<IModesConfig, string[]> = (config, onUpdate, allModes) => {
 
-  const toggleMode = (category: string, checked: boolean) => {
-    let categories;
-    if (checked) {
-      categories = [
-        ...config.modes,
-        category,
-      ];
+  const toggleMode = (mode: string) => {
+    let modes;
+    if (config.modes.includes(mode)) {
+      modes = config.modes.filter(c => c !== mode);
     } else {
-      categories = config.modes.filter(c => c !== category);
+      modes = [
+        ...config.modes,
+        mode,
+      ];
     }
-    onUpdate({ modes: categories });
+    onUpdate({ modes });
   }
 
   return allModes && <div>
@@ -42,7 +42,7 @@ export const useModes: ISettingHook<IModesConfig, string[]> = (config, onUpdate,
         type={'checkbox'}
         key={category}
         checked={config.modes.includes(category)}
-        onChange={e => toggleMode(category, e.target.checked)}
+        onChange={e => toggleMode(category)}
       />
       <span>{capitalize(category)}</span>
     </div>)}

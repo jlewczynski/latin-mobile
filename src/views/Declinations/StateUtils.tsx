@@ -19,8 +19,8 @@ export const loadState = createStateLoader<IConfig>(
     if ('random' in obj) {
       state.random = Boolean(obj.random);
     }
-    if (obj.categories && Array.isArray(obj.categories)) {
-      state.modes = [...(obj.categories as any[]).map(v => String(v))]
+    if (obj.modes && Array.isArray(obj.modes)) {
+      state.modes = [...(obj.modes as any[]).map(v => String(v))]
     }
   },
   (state, word, repeats, errors) => {
@@ -35,10 +35,10 @@ export const loadState = createStateLoader<IConfig>(
 );
 
 export const useWordList = (config: IConfig) => {
-  const { random, modes: categories } = config;
+  const { random, modes } = config;
   const newSet = React.useCallback(() =>
-    words.filter(w => categories.includes(w.mode) || !categories.length),
-  [categories.join(',')]);
+    words.filter(w => modes.includes(w.mode) || !modes.length),
+  [modes.join(',')]);
 
   return useGenericWordList<TDeclination>(random, newSet);
 }
