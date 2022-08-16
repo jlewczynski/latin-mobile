@@ -24,7 +24,7 @@ export const words: TComparison[] = [
   w('wielki', 'adiectiva irregularia', 'magnus', 'maior', 'maximus'),
   w('wysoki', 'adiectiva irregularia', 'superus', 'superior', 'summus'),
   w('zły', 'adiectiva irregularia', 'malus', 'peior', 'pessimus'),
-  w('prowadzący', 'adiectiva irregularia', 'prior', 'prior', 'primus'),
+  w('prowadzący', 'adiectiva irregularia', 'pro', 'prior', 'primus'),
   w('liczny', 'adiectiva irregularia', 'multus', 'plus', 'plurimus'),
   //regular adverbs
   w('długo', 'adverbia regularia', 'longe', 'longius', 'longissime'),
@@ -38,9 +38,8 @@ export const words: TComparison[] = [
   //irregular adverbs
   w('dobrze', 'adverbia irregularia', 'bene', 'melius', 'optime'),
   w('mało', 'adverbia irregularia', 'parum', 'minus', 'minime'),
-  w('bardzo', 'adverbia irregularia', 'magnopere', 'maius', 'maxime'),
-  w('długo', 'adverbia irregularia', 'diu', 'prius', 'diutissime'),
+  w('bardzo', 'adverbia irregularia', 'magnopere', 'magis', 'maxime'),
+  w('długo', 'adverbia irregularia', 'diu', 'diutius', 'diutissime'),
   w('źle', 'adverbia irregularia', 'male', 'peius', 'pessime'),
   w('prowadząc', 'adverbia irregularia', 'pro', 'prius', 'primum'),
-  w('licznie', 'adverbia irregularia', 'multum', 'plus', 'plurimum'),
 ];
