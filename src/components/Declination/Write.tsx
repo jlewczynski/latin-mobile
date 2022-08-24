@@ -4,6 +4,7 @@ import { cases, numbers, TCaseName, TDeclination, TDeclinationNumber, TErrorList
 import { capitalize } from '../../utils';
 import TestInputs from '../TestInput';
 import Section from '../Layout/Section';
+import Header from '../Layout/Header';
 
 interface IProps {
   word: TDeclination;
@@ -24,7 +25,7 @@ const Declination: React.FC<IProps> = (props) => {
   }
 
   return <div className={styles.container}>
-    <h2 className={styles.word}>{word.word}</h2>
+    <Header className={styles.word}>{word.word}</Header>
     {numbers.map((n, ni) => <Section header={n} key={n}>
       <TestInputs
         inputRefs={inputRefs}

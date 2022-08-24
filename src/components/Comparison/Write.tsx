@@ -3,6 +3,7 @@ import styles from './styles.module.css';
 import { capitalize } from '../../utils';
 import TestInputs from '../TestInput';
 import { grades, TComparison, TErrorList, TGradeName } from '../../models/Comparison';
+import Header from '../Layout/Header';
 
 interface IProps {
   word: TComparison;
@@ -21,7 +22,7 @@ const Comparison: React.FC<IProps> = (props) => {
   }
 
   return <div className={styles.container}>
-    <h2 className={styles.word}>{word.word}</h2>
+    <Header className={styles.word}>{word.word}</Header>
     <TestInputs
       inputRefs={inputRefs}
     >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { getModeLabels, getTestModeData, modeLabel, setTestModeData, TConjugation, TErrorList } from '../../models/Conjugation';
 import { capitalize } from '../../utils';
+import Header from '../Layout/Header';
 import Section from '../Layout/Section';
 import TestInputs from '../TestInput';
 import styles from './styles.module.css';
@@ -42,7 +43,7 @@ const ConjugactionWrite: React.FC<IProps> = (props) => {
   }, [word.mode]);
 
   return <div className={styles.container}>
-    <h2 className={styles.word}>{word.word}</h2>
+    <Header className={styles.word}>{word.word}</Header>
     <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
     {labels.map(({section, labels, startIndex}) => <Section header={section} key={section}>
       <TestInputs inputRefs={inputRefs}>
