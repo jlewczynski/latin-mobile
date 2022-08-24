@@ -179,7 +179,7 @@ const ago: TConjugation = {
     ),
     passivum: v(
       ['agor', 'ageris', 'agitur', 'agimur', 'agimini', 'aguntur'],
-      ['agebar', 'agebaris', 'agebatu', 'agebamur', 'agebamini', 'agebantur'],
+      ['agebar', 'agebaris', 'agebatur', 'agebamur', 'agebamini', 'agebantur'],
       ['agar', 'ageris', 'agetur', 'agemur', 'agemini', 'agentur'],
       ...indicativeSum('actus'),
     ),
@@ -376,7 +376,7 @@ const eo: TConjugation = {
     ),
     passivum: v(
       ['ear', 'earis', 'eatur', 'eamur', 'eamini', 'eantur'],
-      ['irer', 'ireris', 'iretur', 'iremus', 'iremini', 'irentur'],
+      ['irer', 'ireris', 'iretur', 'iremur', 'iremini', 'irentur'],
       ...conjunctiveSum('itus'),
     ),
   },

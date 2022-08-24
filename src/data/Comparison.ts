@@ -32,7 +32,7 @@ export const words: TComparison[] = [
   w('mocno', 'adverbia regularia', 'fortiter', 'fortius', 'fortissime'),
   w('wolno', 'adverbia regularia', 'libere', 'liberius', 'liberrime'),
   w('szczęśliwie', 'adverbia regularia', 'feliciter', 'felicius', 'felicissime'),
-  w('pięknie', 'adverbia regularia', 'pulchre', 'pulchrium', 'pulcherrime'),
+  w('pięknie', 'adverbia regularia', 'pulchre', 'pulchrius', 'pulcherrime'),
   w('mądrze', 'adverbia regularia', 'sapienter', 'sapientius', 'sapientissime'),
   w('ostro', 'adverbia regularia', 'acriter', 'acrius', 'acerrime'),
   //irregular adverbs
