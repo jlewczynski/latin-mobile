@@ -2,7 +2,6 @@ import React from 'react';
 import { useGenericWordList } from '../../components/Layout/useWordList';
 import { words } from "../../data/Declination";
 import { TDeclination } from '../../models/Declination';
-import { capitalize } from '../../utils';
 import { createStateLoader } from "../../utils/ViewsPersistentState";
 import { IModesConfig, IRandomConfig, useModes, useRandom } from '../hooks/useSettings';
 

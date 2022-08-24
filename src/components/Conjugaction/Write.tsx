@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { getModeLabels, getTestModeData, modeLabel, setTestModeData, TConjugation, TErrorList } from '../../models/Conjugation';
 import { capitalize } from '../../utils';
 import Section from '../Layout/Section';

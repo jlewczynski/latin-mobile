@@ -2,7 +2,7 @@ import React from 'react';
 import { TConjugationMode } from '../../components/Conjugaction/Write';
 import { useGenericWordList } from '../../components/Layout/useWordList';
 import { words } from '../../data/Conjugation';
-import { modeLabel, testModes } from "../../models/Conjugation";
+import { testModes } from "../../models/Conjugation";
 import { createStateLoader } from "../../utils/ViewsPersistentState";
 import { IModesConfig, IRandomConfig, useModes, useRandom } from '../hooks/useSettings';
 

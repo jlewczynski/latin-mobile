@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { getModeLabels, getTestModeData, modeLabel, TConjugation } from '../../models/Conjugation';
+import React from 'react';
+import { getModeLabels, getTestModeData, modeLabel } from '../../models/Conjugation';
 import { capitalize } from '../../utils';
 import Section from '../Layout/Section';
 import TestButton from '../TestButton';

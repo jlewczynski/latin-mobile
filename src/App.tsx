@@ -1,5 +1,5 @@
 import React from 'react';
-import { getComponent, views } from './views';
+import { getComponent } from './views';
 import styles from './App.module.css';
 
 const App: React.FC = () => {
