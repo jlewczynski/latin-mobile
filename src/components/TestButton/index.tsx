@@ -5,15 +5,16 @@ import styles from './styles.module.css';
 interface ITestButtonProps {
   name: string;
   value: string;
+  render?: any;
 }
 
 const TestButton: React.FC<ITestButtonProps> = (props) => {
-  const {name, value} = props;
+  const {name, value, render} = props;
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     setVisible(false);
-  }, [name, value]);
+  }, [name, value, render]);
 
   return (
   <button

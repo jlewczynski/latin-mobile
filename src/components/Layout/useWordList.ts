@@ -23,11 +23,11 @@ export function useGenericWordList<T>(random: boolean, newSet: () => T[]): [T, (
   });
 
   const incorrect = () => setWordList(prev => {
-    if (prev.length === 1) {
-      return prev;
-    }
     const [first, ...rest] = prev;
-    return [...next(rest), first];
+    if (!rest.length) {
+      return [ {...first} ];
+    }
+    return [...next(rest), {...first}];
   });
 
   const nextWord = (isCorrect: boolean) => isCorrect ? correct() : incorrect();

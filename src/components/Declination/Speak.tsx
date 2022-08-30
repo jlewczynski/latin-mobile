@@ -14,10 +14,10 @@ const Declination: React.FC<IProps> = (props) => {
   const { word } = props;
 
   return <div className={styles.container}>
-    <Header className={styles.word}>{word.word}</Header>
+    <Header className={styles.word} title={word.word} />
     <div className={styles.testSpace} key={word.word}>
       {numbers.map(n => <Section header={n} key={n}>
-        {cases.map(c => <TestButton key={`${n}-${c}`} name={capitalize(c)} value={word[n][c] ?? ''}/>)}
+        {cases.map(c => <TestButton key={`${n}-${c}`} name={capitalize(c)} value={word[n][c] ?? ''} render={word} />)}
       </Section>)}
     </div>
   </div>

@@ -26,12 +26,13 @@ const ConjugactionSpeak: React.FC<IProps> = (props) => {
   }, [word.mode]);
 
   return <div className={styles.container}>
-    <Header className={styles.word}>{word.word}</Header>
-    <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
+    <Header className={styles.word}
+      title={word.word}
+      subtitle={modeLabel(word.mode)} />
     <div className={styles.testSpace} key={`${word.word}-${word.mode}`}>
       {labels.map(({section, labels, startIndex}) => <Section key={section} header={section}>
         {labels.map((label, i) =>
-          <TestButton key={`${label}`} name={capitalize(label)} value={data[startIndex + i]} />)}
+          <TestButton key={`${label}`} name={capitalize(label)} value={data[startIndex + i]} render={word} />)}
       </Section>)}
     </div>
   </div>

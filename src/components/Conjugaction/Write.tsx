@@ -43,8 +43,8 @@ const ConjugactionWrite: React.FC<IProps> = (props) => {
   }, [word.mode]);
 
   return <div className={styles.container}>
-    <Header className={styles.word}>{word.word}</Header>
-    <h3 className={styles.mode}>{modeLabel(word.mode)}</h3>
+    <Header className={styles.word} title={word.word} subtitle={modeLabel(word.mode)}/>
+    {/* <h3 className={styles.mode}></h3> */}
     {labels.map(({section, labels, startIndex}) => <Section header={section} key={section}>
       <TestInputs inputRefs={inputRefs}>
         {labels.map((label, i) => ({

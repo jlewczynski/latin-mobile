@@ -25,7 +25,7 @@ const Declination: React.FC<IProps> = (props) => {
   }
 
   return <div className={styles.container}>
-    <Header className={styles.word}>{word.word}</Header>
+    <Header className={styles.word} title={word.word} />
     {numbers.map((n, ni) => <Section header={n} key={n}>
       <TestInputs
         inputRefs={inputRefs}

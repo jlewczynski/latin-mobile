@@ -22,7 +22,7 @@ const Comparison: React.FC<IProps> = (props) => {
   }
 
   return <div className={styles.container}>
-    <Header className={styles.word}>{word.word}</Header>
+    <Header className={styles.word} title={word.word} />
     <TestInputs
       inputRefs={inputRefs}
     >

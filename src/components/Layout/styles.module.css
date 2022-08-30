@@ -28,6 +28,13 @@
   box-shadow: 0 -2px 4px 2px #00000030;
 }
 
+.footer > * {
+  margin-bottom: 10px;
+}
+.footer > *:last-child {
+  margin-bottom: 0px;
+}
+
 .submit {
   width: 100%;
   height: 100%;
@@ -35,7 +42,6 @@
   color: white;
   border: none;
   border-radius: 5px;
-  margin-bottom: 10px;
   height: 44px;
 }
 
@@ -86,4 +92,12 @@
 
 .buttonList {
   flex: 1 1 auto;
+}
+
+.buttonList > * {
+  margin-bottom: 10px;
+}
+
+.buttonList > *:last-child {
+  margin-bottom: 0px;
 }
