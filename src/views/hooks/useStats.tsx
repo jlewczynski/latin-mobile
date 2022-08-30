@@ -1,4 +1,5 @@
 import React from 'react';
+import StatsUpdater from '../../components/Settings/StatsUpdater';
 import { IWordStatsSet } from '../../models/WordStats';
 
 export const useStatsModification = (
@@ -11,14 +12,10 @@ export const useStatsModification = (
   const updateStat = (value: number) => onUpdate({
     ...stats,
     [statKey]: {
-      repeats: (stats[statKey]?.repeats ?? 0) + value,
+      repeats: value,
       errors: stats[statKey]?.errors ?? 0,
     }
   });
 
-  return <div>
-    <button onClick={() => updateStat(-1)}>-</button>
-    <span>{stats[statKey]?.repeats}</span>
-    <button onClick={() => updateStat(1)}>+</button>
-  </div>;
+  return <StatsUpdater value={stats[statKey]?.repeats || 0} onChange={updateStat} />;
 }

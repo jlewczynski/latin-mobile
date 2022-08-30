@@ -1,4 +1,6 @@
 import React from 'react';
+import CategoriesDiv from '../../components/Settings/CategoriesDiv';
+import CheckBox from '../../components/Settings/CheckBox';
 import { capitalize } from '../../utils';
 
 export type ISettingHook<T, U = {}> = (config: T, onUpdate: (diff: Partial<T>) => void, options?: U) => React.ReactNode;
@@ -7,14 +9,9 @@ export interface IRandomConfig {
   random: boolean;
 }
 export const useRandom: ISettingHook<IRandomConfig> = (config, onUpdate) => {
-  return <label>
-    Random
-    <input
-      type='checkbox'
-      checked={config.random}
-      onChange={e => onUpdate({ random: e.target.checked })}
-    />
-  </label>
+  return <CheckBox label={'Losowe'} value={config.random}
+    onChange={checked => onUpdate({ random: checked })}
+  />;
 }
 
 export interface IModesConfig {
@@ -35,18 +32,14 @@ export const useModes: ISettingHook<IModesConfig, string[]> = (config, onUpdate,
     onUpdate({ modes });
   }
 
-  return allModes && <div>
-    <div>Categories</div>
-    {allModes.map(category => <div>
-      <input
-        type={'checkbox'}
-        key={category}
-        checked={config.modes.includes(category)}
-        onChange={e => toggleMode(category)}
-      />
-      <span>{capitalize(category)}</span>
-    </div>)}
-  </div>;
+  return allModes && <CategoriesDiv>
+    {allModes.map(category => <CheckBox
+      key={category}
+      label={capitalize(category.replaceAll('.', ' ').replaceAll('+', ' & '))}
+      value={config.modes.includes(category)}
+      onChange={() => toggleMode(category)}
+    />)}
+  </CategoriesDiv>;
 }
 
 export function useSettings() {

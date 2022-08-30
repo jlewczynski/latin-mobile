@@ -1,0 +1,42 @@
+.categories {
+  margin: 10px 0;
+}
+
+.categoryLabel {
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 3px;
+}
+
+.categories .container {
+  margin-left: 10px;
+}
+
+.checkbox {
+  margin-bottom: 3px;
+  display: flex;
+}
+
+.input {
+  height: 16px;
+  margin-right: 10px;
+}
+
+.label {
+  user-select: none;
+  display: inline-block;
+}
+
+.statUpdater {
+  height: 28px;
+}
+.updaterButton {
+  height: 28px;
+  width: 28px;
+}
+.updaterValue {
+  display: inline-block;
+  min-width: 40px;
+  padding: 0 10px;
+  text-align: center;
+  line-height: 28px;
+}
