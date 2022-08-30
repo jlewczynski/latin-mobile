@@ -113,7 +113,7 @@ const moneo: TConjugation = {
       ['monebam', 'monebas', 'monebat', 'monebamus', 'monebatis', 'monebant'],
       ['monebo', 'monebis', 'monebit', 'monebimus', 'monebitis', 'monebunt'],
       ['monui', 'monuisti', 'monuit', 'monuimus', 'monuistis', 'monuerunt'],
-      ['monueram', 'monueras', 'monuerat', 'monueramus', 'monueratis', 'monuerint'],
+      ['monueram', 'monueras', 'monuerat', 'monueramus', 'monueratis', 'monuerant'],
       ['monuero', 'monueris', 'monuerit', 'monuerimus', 'monueritis', 'monuerint'],
     ),
     passivum: v(
@@ -509,7 +509,7 @@ const facio: TConjugation = {
     ),
     passivum: v(
       ['', 'fi', '', '', 'fite', ''],
-      ['', 'fito', 'fito', '', 'fitote', 'fiunt'],
+      ['', 'fito', 'fito', '', 'fitote', 'fiunto'],
     ),
   },
   infinitivus: {
