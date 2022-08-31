@@ -358,7 +358,7 @@ const eo: TConjugation = {
       ['ibo', 'ibis', 'ibit', 'ibimus', 'ibitis', 'ibunt'],
       ['ii', 'isti', 'iit', 'iimus', 'istis', 'ierunt'],
       ['ieram', 'ieras', 'ierat', 'ieramus', 'ieratis', 'ierant'],
-      ['iero', 'ieris', 'ierit', 'ierimus', 'ieritis', 'ierunt'],
+      ['iero', 'ieris', 'ierit', 'ierimus', 'ieritis', 'ierint'],
     ),
     passivum: v(
       ['eor', 'iris', 'itur', 'imur', 'imini', 'euntur'],
@@ -575,7 +575,7 @@ const possum: TConjugation = {
       ['potero', 'poteris', 'poterit', 'poterimus', 'poteritis', 'poterunt'],
       ['potui', 'potuisti', 'potuit', 'potuimus', 'potuistis', 'potuerunt'],
       ['potueram', 'potueras', 'potuerat', 'potueramus', 'potueratis', 'potuerant'],
-      ['potuero', 'potueris', 'potuerit', 'potuerimus', 'potueritis', 'potuerunt'],
+      ['potuero', 'potueris', 'potuerit', 'potuerimus', 'potueritis', 'potuerint'],
     )
   },
   coniunctivus: {
