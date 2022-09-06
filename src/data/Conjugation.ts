@@ -370,7 +370,7 @@ const eo: TConjugation = {
   coniunctivus: {
     activum: v(
       ['eam', 'eas', 'eat', 'eamus', 'eatis', 'eant'],
-      ['item', 'ires', 'iret', 'iremus', 'iretis', 'irent'],
+      ['irem', 'ires', 'iret', 'iremus', 'iretis', 'irent'],
       ['ierim', 'ieris', 'ierit', 'ierimus', 'ieritis', 'ierint'],
       ['issem', 'isses', 'isset', 'issemus', 'issetis', 'issent'],
     ),
